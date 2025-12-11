@@ -1,4 +1,4 @@
-/* style.css 전체 내용 (커서 모양 수정 및 최종 버전) */
+/* style.css 전체 내용 (충돌 최소화 및 커서 스타일 포함) */
 
 /* 1. 기본 설정 */
 body {
@@ -33,13 +33,14 @@ h1 {
     padding-bottom: 10px;
 }
 
+/* ✅ 전경 사진 크기 복구 스타일 (max-width는 index.html에서 인라인으로 강제 적용) */
 .image-wrapper {
     margin: 20px 0;
     overflow: hidden;
 }
 
 .school-image {
-    max-width: 100%;
+    /* max-width는 index.html에서 강제 적용 */
     height: auto;
     display: block;
     border-radius: 8px;
@@ -59,7 +60,7 @@ h1 {
     font-size: 1em;
 }
 
-/* ✅ 조회 버튼 스타일 (cursor: pointer 추가) */
+/* ✅ 조회 버튼 스타일 (cursor: pointer는 index.html에서 강제 적용) */
 #checkForm button {
     padding: 15px;
     background-color: #0056b3;
@@ -67,7 +68,6 @@ h1 {
     border: none;
     border-radius: 6px;
     font-size: 1.1em;
-    cursor: pointer; /* 마우스 오버 시 손가락 모양으로 변경 */
     transition: background-color 0.3s ease;
 }
 
@@ -75,20 +75,13 @@ h1 {
     background-color: #004080;
 }
 
-/* 4. 결과 및 오류 스타일 */
-#result {
-    margin-top: 30px;
-    text-align: center;
-}
-
-/* ✅ 인쇄 버튼 스타일 (cursor: pointer 추가) */
+/* ✅ 인쇄 버튼 스타일 (cursor: pointer는 script.js에서 강제 적용) */
 .print-button {
     padding: 10px 20px;
     background-color: #17a2b8;
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer; /* 마우스 오버 시 손가락 모양으로 변경 */
     margin-top: 20px;
     font-size: 1em;
     transition: background-color 0.3s ease;
@@ -98,7 +91,8 @@ h1 {
     background-color: #138496;
 }
 
-/* 5. 오버레이 합격증 스타일 (핵심) */
+
+/* 4. 오버레이 합격증 스타일 (핵심) */
 .certificate-box.image-overlay {
     position: relative; 
     border: none; 
@@ -121,19 +115,7 @@ h1 {
     height: 100%;
 }
 
-/* ⚠️ 폰트/위치 스타일은 script.js의 인라인 스타일이 적용되도록 CSS 파일에서는 제거 */
-.overlay-name {
-    position: absolute;
-    white-space: nowrap;
-}
-
-.overlay-school {
-    position: absolute;
-    white-space: nowrap;
-}
-
-
-/* 6. 인쇄용 최적화 CSS: @media print (핵심) */
+/* 5. 인쇄용 최적화 CSS: @media print (핵심) */
 @media print {
     body {
         background-color: white !important;
