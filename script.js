@@ -1,12 +1,17 @@
 // =======================================================================
-// 1. 테스트용 데이터 (합격 1명, 불합격 1명)
+// 1. 테스트용 데이터 (합격자 1명만 남기고 모두 삭제됨)
+//    - 이 코드는 명단 데이터 오류를 확인하기 위한 것입니다.
 // =======================================================================
 const candidates = [
-    // 합격자 테스트용
-    { school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격" }, 
-    // 불합격자 테스트용
-    { school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격" }
+    // --- 합격자 테스트용 1명만 남김 (이름: 김하남) ---
+    { school: "하남중학교", class: 3, number: 25, name: "김하남", status: "합격" },
+    
+    // --- 불합격자 테스트용 1명만 남김 (이름: 이불합) ---
+    { school: "미사중학교", class: 1, number: 1, name: "이불합", status: "불합격" }
+    
+    // 이외의 모든 긴 명단 데이터는 삭제되었습니다.
 ];
+
 
 // =======================================================================
 // 2. 조회 로직 및 이벤트 리스너
@@ -16,8 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkForm) {
         checkForm.addEventListener('submit', checkAdmission);
     } else {
-        // 콘솔에 오류 메시지 출력 (index.html 문제 확인용)
-        console.error("오류: checkForm ID를 가진 폼 요소를 찾을 수 없습니다."); 
+        console.error("오류: index.html에서 checkForm ID를 가진 폼 요소를 찾을 수 없습니다."); 
     }
 });
 
@@ -63,7 +67,7 @@ function checkAdmission(event) {
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 (이전과 동일)
+// 3. 결과 HTML 생성 함수들 
 // =======================================================================
 
 function getPassHtml(data) {
@@ -129,8 +133,8 @@ function printCertificate() {
     const originalContents = document.body.innerHTML;
     document.body.innerHTML = printContents;
     window.print();
+    // 인쇄 후 원래 페이지 내용으로 복원 시, 이벤트 리스너를 다시 연결해야 합니다.
     document.body.innerHTML = originalContents;
-    // DOM이 재구성된 후 이벤트 리스너를 다시 연결합니다.
     document.getElementById('checkForm').addEventListener('submit', checkAdmission);
 }
 
