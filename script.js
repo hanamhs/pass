@@ -297,7 +297,7 @@ const candidates = [
     { school: "미사중학교", class: 12, number: 1, name: "강현아", status: "합격" },
     { school: "덕풍중학교", class: 3, number: 11, name: "박서윤", status: "합격" },
     { school: "은가람중학교", class: 8, number: 27, name: "홍지민", status: "합격" },
-    { school: "윤슬중학교", class: 12, number: 24, name: "이채은", status: "합격" },
+    { school: "윤슬중학교", class: 12, number: 24, name: "이채원", status: "합격" },
     { school: "미사중학교", class: 1, number: 22, name: "유연지", status: "합격" },
     // --- 불합격자 명단 ---
     { school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격" },
@@ -310,7 +310,6 @@ const candidates = [
 
 // =======================================================================
 // 2. 조회 로직 및 이벤트 리스너
-// (이전과 동일)
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
@@ -382,7 +381,7 @@ function getPassHtml(data) {
             <h1 style="color: #0056b3;">🎉 합격자 발표 확인 🎉</h1>
             
             <div class="certificate-box image-overlay" id="printableArea">
-                <img src="./images/certificate_template_final.jpg" alt="합격증 양식" class="template-background">
+                <img src="./images/certificate_template.jpg" alt="합격증 양식" class="template-background">
                 
                 <div class="overlay-text-container">
                     <p class="overlay-name"> ${data.name}</p>
