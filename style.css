@@ -1,4 +1,4 @@
-/* style.css 전체 내용 (충돌 제거 버전) */
+/* style.css 전체 내용 (전경 사진 크기 복구 및 충돌 제거 버전) */
 
 /* 1. 기본 설정 */
 body {
@@ -22,6 +22,19 @@ body {
     width: 90%;
     max-width: 800px;
     text-align: center;
+}
+
+/* ✅ 전경 사진 크기 복구 스타일 */
+.image-wrapper {
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.school-image {
+    max-width: 100%; /* 컨테이너를 넘어가지 않도록 최대 너비 설정 */
+    height: auto;
+    display: block;
+    border-radius: 8px;
 }
 
 /* 2. 폼 및 버튼 (기능을 위한 최소 스타일) */
