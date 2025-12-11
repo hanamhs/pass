@@ -344,7 +344,7 @@ const candidates = [
     { school: "윤슬중학교", class: 3, number: 10, name: "김태린", status: "합격" },
     { school: "윤슬중학교", class: 11, number: 24, name: "정우민", status: "합격" },
     { school: "미사중학교", class: 1, number: 22, name: "유연지", status: "합격" },
-    // --- 불합격자 명단 (총 5명) ---
+    // --- 불합격자 명단 ---
     { school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격" },
     { school: "신평중학교", class: 3, number: 21, name: "전요한", status: "불합격" },
     { school: "윤슬중학교", class: 2, number: 20, name: "윤영빈", status: "불합격" },
@@ -354,7 +354,7 @@ const candidates = [
 
 
 // =======================================================================
-// 2. 조회 로직 및 이벤트 리스너 (안전 로직 포함)
+// 2. 조회 로직 및 이벤트 리스너
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
@@ -464,24 +464,40 @@ function getErrorHtml(message) {
 }
 
 // =======================================================================
-// 4. 합격증 출력 기능 및 오디오 제어 함수
+// 4. 합격증 출력 기능 및 오디오 제어 함수 (인쇄 오류 방지 최종 버전)
 // =======================================================================
 
 function printCertificate() {
-    const originalContents = document.body.innerHTML;
+    // 1. 인쇄 직전, 교가를 멈춥니다.
+    const schoolSong = document.getElementById('schoolSong');
+    if (schoolSong) {
+        stopAndResetSong(schoolSong);
+    }
+    
+    // 2. 인쇄 영역 (ID: printableArea)의 HTML을 가져옵니다.
     const printContents = document.getElementById('printableArea').innerHTML;
     
-    // 인쇄용 CSS가 적용되도록 HTML 본문을 인쇄 내용으로 교체합니다.
-    document.body.innerHTML = printContents;
+    // 3. 임시 팝업 창을 열어 인쇄를 실행하고 닫습니다. (가장 오류 없는 인쇄 방식)
+    const printWindow = window.open('', '_blank');
     
-    window.print();
+    // 인쇄용 HTML 구조 생성
+    printWindow.document.write('<html><head><title>합격증 인쇄</title>');
+    // 인쇄 시 style.css를 적용합니다.
+    printWindow.document.write('<link rel="stylesheet" href="./style.css">');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(printContents);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
     
-    document.body.innerHTML = originalContents;
+    // 인쇄 실행 및 팝업 닫기
+    printWindow.onload = function() {
+        printWindow.focus(); // 팝업창에 포커스
+        printWindow.print(); // 인쇄 대화상자 호출
+        printWindow.close(); // 인쇄 후 팝업 닫기 (선택 사항)
+    };
     
-    const checkForm = document.getElementById('checkForm');
-    if (checkForm) {
-        checkForm.addEventListener('submit', checkAdmission);
-    }
+    // 4. 인쇄 후, 페이지를 다시 로드하여 모든 스크립트 상태를 깔끔하게 초기화합니다.
+    window.location.reload(); 
 }
 
 function stopAndResetSong(audioElement) {
