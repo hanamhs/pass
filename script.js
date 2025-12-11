@@ -2,7 +2,7 @@
 // 1. 합격/불합격자 명단 통합 데이터 (전체 내용)
 // =======================================================================
 const candidates = [
-    // --- 합격자 명단 ---
+    // --- 합격자 명단 (총 295명) ---
     { school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격" },
     { school: "덕풍중학교", class: 5, number: 22, name: "이준", status: "합격" },
     { school: "덕풍중학교", class: 4, number: 21, name: "유재은", status: "합격" },
@@ -299,7 +299,7 @@ const candidates = [
     { school: "은가람중학교", class: 8, number: 27, name: "홍지민", status: "합격" },
     { school: "윤슬중학교", class: 12, number: 24, name: "이채원", status: "합격" },
     { school: "미사중학교", class: 1, number: 22, name: "유연지", status: "합격" },
-    // --- 불합격자 명단 ---
+    // --- 불합격자 명단 (총 5명) ---
     { school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격" },
     { school: "신평중학교", class: 3, number: 21, name: "전요한", status: "불합격" },
     { school: "윤슬중학교", class: 2, number: 20, name: "윤영빈", status: "불합격" },
@@ -371,11 +371,11 @@ function checkAdmission(event) {
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 (이미지 오버레이 방식으로 최종 교체)
+// 3. 결과 HTML 생성 함수들 (인라인 스타일 적용)
 // =======================================================================
 
 function getPassHtml(data) {
-    // 이미지 오버레이 방식을 위한 HTML 구조
+    // 인라인 스타일로 최종 위치와 폰트 굵기를 강제 적용합니다.
     const certificateHtml = `
         <div class="admission-pass">
             <h1 style="color: #0056b3;">🎉 합격자 발표 확인 🎉</h1>
@@ -384,8 +384,27 @@ function getPassHtml(data) {
                 <img src="./images/certificate_template.jpg" alt="합격증 양식" class="template-background">
                 
                 <div class="overlay-text-container">
-                    <p class="overlay-name"> ${data.name}</p>
-                    <p class="overlay-school"> ${data.school}</p>
+                    <p class="overlay-name" style="
+                        position: absolute !important;
+                        top: 27% !important;     
+                        left: 17% !important;      
+                        font-size: 1.2em !important; 
+                        font-family: 'Nanum Gothic', sans-serif !important;
+                        font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
+                        color: #000 !important;
+                        white-space: nowrap;
+                    "> ${data.name}</p>
+                    
+                    <p class="overlay-school" style="
+                        position: absolute !important;
+                        top: 31% !important;   
+                        left: 23% !important;    
+                        font-size: 1.2em !important; 
+                        font-family: 'Nanum Gothic', sans-serif !important;
+                        font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
+                        color: #000 !important;
+                        white-space: nowrap;
+                    "> ${data.school}</p>
                 </div>
             </div>
             
