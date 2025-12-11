@@ -1,8 +1,11 @@
 // =======================================================================
-// 1. 합격/불합격자 명단 통합 데이터 (전체 내용)
+// 1. 합격/불합격자 명단 통합 데이터 (접수번호 필드 포함)
+//    NOTE: class와 number 필드를 조합하여 접수번호를 대체했습니다.
+//          만약 접수번호가 다른 데이터라면, 아래 number 필드를 접수번호로 변경해야 합니다.
 // =======================================================================
 const candidates = [
     // --- 합격자 명단 (총 295명) ---
+    // 예시: (출신중: 윤슬중학교, 반: 5, 접수번호: 26, 이름: 이준형) 
     { school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격" },
     { school: "덕풍중학교", class: 5, number: 22, name: "이준", status: "합격" },
     { school: "덕풍중학교", class: 4, number: 21, name: "유재은", status: "합격" },
@@ -309,7 +312,8 @@ const candidates = [
 
 
 // =======================================================================
-// 2. 조회 로직 및 이벤트 리스너
+// 2. 조회 로직 및 이벤트 리스너 (기존 로직 유지)
+//    NOTE: 조회 필드 (schoolName, classNumber, studentNumber, studentName) 유지
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
@@ -325,7 +329,7 @@ function checkAdmission(event) {
 
     const schoolInput = document.getElementById('schoolName');
     const classInput = document.getElementById('classNumber');
-    const numberInput = document.getElementById('studentNumber');
+    const numberInput = document.getElementById('studentNumber'); // 현재 number는 학생번호/접수번호로 사용됨
     const nameInput = document.getElementById('studentName');
     
     const resultDiv = document.getElementById('result');
@@ -358,7 +362,8 @@ function checkAdmission(event) {
 
     if (result) {
         if (result.status === "합격") {
-            resultDiv.innerHTML = getPassHtml(result);
+            // ✅ 합격 시, 학생 정보를 getPassHtml로 전달
+            resultDiv.innerHTML = getPassHtml(result); 
             schoolSong.play().catch(e => console.error("오디오 재생 실패:", e));
         } else {
             resultDiv.innerHTML = getFailHtml(result);
@@ -372,19 +377,30 @@ function checkAdmission(event) {
 
 // =======================================================================
 // 3. 결과 HTML 생성 함수들 (PDF 연동으로 최종 변경)
+//    PDF 파일명은 [접수번호].pdf 형식으로 가정하고 경로를 생성합니다.
 // =======================================================================
 
 function getPassHtml(data) {
-    // ✅ PDF 파일명에 맞춰 최종 수정
-    const pdfPath = './images/hanam_admission_certificate.pdf'; 
+    // 💡 접수번호를 파일명으로 사용: 'number' 필드를 접수번호로 간주합니다.
+    const applicationNumber = data.number; 
+    
+    // PDF 파일 경로를 [접수번호].pdf 형식으로 생성
+    const pdfPath = `./images/${applicationNumber}.pdf`; 
 
     return `
         <div class="admission-pass">
             <h1>🎉 합격자 발표 확인 🎉</h1>
-            <p>축하합니다, **${data.name}** 학생! 2026학년도 신입학 전형에 합격하셨습니다.</p>
+            
+            <p>축하합니다, <strong style="font-size: 1.1em;">${data.name}</strong> 학생! 
+               출신 중학교: <strong>${data.school}</strong></p>
             
             <p style="margin-top: 20px; font-weight: bold; color: #0056b3;">
-                합격 증명서는 아래 버튼을 통해 고화질 PDF 파일로 다운로드/출력하실 수 있습니다.
+                2026학년도 신입학 전형에 합격하셨습니다.
+            </p>
+            
+            <p>
+                합격 증명서는 아래 버튼을 통해 접수번호 **${applicationNumber}**에 해당하는 
+                고화질 PDF 파일로 다운로드/출력하실 수 있습니다.
             </p>
 
             <a href="${pdfPath}" target="_blank" class="print-button" style="
