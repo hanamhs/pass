@@ -3,8 +3,6 @@
 // =======================================================================
 const candidates = [
     // --- 합격/불합격자 명단 (접수번호, 학교, 이름 등 전체 데이터) ---
-    // 주의: '번호' 필드는 엑셀 데이터의 '번호' 열을 그대로 사용합니다.
-    // PDF 파일명은 '접수번호' 필드를 기반으로 합니다.
     { applicationNumber: 593322, school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격", major: "국가유공자자녀전형" },
     { applicationNumber: 498320, school: "덕풍중학교", class: 5, number: 22, name: "이준", status: "합격", major: "일반전형" },
     { applicationNumber: 521584, school: "덕풍중학교", class: 4, number: 21, name: "유재은", status: "합격", major: "일반전형" },
@@ -350,11 +348,12 @@ const candidates = [
 
 
 // =======================================================================
-// 2. 조회 로직 및 이벤트 리스너 (접수번호 기반으로 조회 필드 수정)
+// 2. 조회 로직 및 이벤트 리스너 (✅ 접수번호 단일 조회 로직)
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
     if (checkForm) {
+        // NOTE: 이 함수는 index.html의 폼 ID가 'checkForm'일 때만 작동합니다.
         checkForm.addEventListener('submit', checkAdmission); 
     } else {
         console.error("오류: index.html에서 'checkForm' ID를 가진 <form> 요소를 찾을 수 없습니다."); 
@@ -364,38 +363,31 @@ document.addEventListener('DOMContentLoaded', () => {
 function checkAdmission(event) {
     event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
 
-    const schoolInput = document.getElementById('schoolName');
-    const nameInput = document.getElementById('studentName');
-    // NOTE: 접수번호를 입력받는 필드가 따로 없으므로, 편의상 '번호(studentNumber)' 필드를 접수번호로 사용합니다.
-    const applicationInput = document.getElementById('studentNumber'); 
+    // NOTE: index.html에서 이름과 학교명 입력 필드가 제거되었으므로, 이 코드를 사용하면 404가 발생합니다.
+    // 따라서, 조회 필드를 접수번호만 사용하도록 완전히 변경했습니다.
     
-    // 나머지 반(class) 필드는 사용하지 않음
+    const applicationInput = document.getElementById('studentNumber'); // 접수번호
     
     const resultDiv = document.getElementById('result');
     const schoolSong = document.getElementById('schoolSong');
 
-    if (!schoolInput || !applicationInput || !nameInput) {
-        resultDiv.innerHTML = getErrorHtml("필수 입력 요소 중 일부를 찾을 수 없습니다. (HTML ID 오류)");
-        console.error("HTML 요소 오류: schoolName, studentNumber, studentName 중 하나가 누락되었습니다. index.html을 확인하세요.");
+    if (!applicationInput) {
+        resultDiv.innerHTML = getErrorHtml("필수 입력 요소 (접수번호)를 찾을 수 없습니다. (HTML ID 오류)");
         stopAndResetSong(schoolSong);
         return;
     }
 
-    const inputSchool = schoolInput.value.trim();
     const inputApplicationNumber = parseInt(applicationInput.value.trim()); // 접수번호
-    const inputName = nameInput.value.trim();
     
-    if (!inputSchool || isNaN(inputApplicationNumber) || !inputName) {
-        resultDiv.innerHTML = getErrorHtml("모든 항목을 정확히 입력했는지 확인해 주세요.");
+    if (isNaN(inputApplicationNumber)) {
+        resultDiv.innerHTML = getErrorHtml("접수번호를 정확히 입력해 주세요. (숫자만 입력)");
         stopAndResetSong(schoolSong);
         return;
     }
     
-    // 접수번호, 학교명, 이름이 모두 일치하는 학생을 찾습니다.
+    // ✅ 접수번호만 일치하는 학생을 찾습니다.
     const result = candidates.find(c => 
-        c.applicationNumber === inputApplicationNumber && 
-        c.school === inputSchool && 
-        c.name === inputName
+        c.applicationNumber === inputApplicationNumber
     );
 
     if (result) {
@@ -408,7 +400,8 @@ function checkAdmission(event) {
             stopAndResetSong(schoolSong);
         }
     } else {
-        resultDiv.innerHTML = getErrorHtml("입력하신 정보와 일치하는 수험생 정보가 없습니다. 접수번호, 출신 중학교, 성명을 다시 한번 확인해 주세요.");
+        // 조회 실패 시 (접수번호가 명단에 없음)
+        resultDiv.innerHTML = getErrorHtml(`입력하신 접수번호 (${inputApplicationNumber})와 일치하는 수험생 정보가 명단에 없습니다.`);
         stopAndResetSong(schoolSong);
     }
 }
@@ -422,6 +415,7 @@ function getPassHtml(data) {
     const applicationNumber = data.applicationNumber; 
     
     // PDF 파일 경로를 [접수번호].pdf 형식으로 생성
+    // NOTE: 폴더명과 파일명은 소문자여야 합니다. (images/593322.pdf)
     const pdfPath = `./images/${applicationNumber}.pdf`; 
 
     return `
