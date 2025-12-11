@@ -1,8 +1,8 @@
-/* style.css 전체 내용 (굵기 400 통일 및 위치 조정 재수정) */
+/* style.css 전체 내용 (오직 합격증과 필수 디자인만 남긴 단순화 버전) */
 
-/* 1. 기본 설정 */
+/* 1. 기본 설정 (가장 기본적인 폰트 및 배경 설정) */
 body {
-    font-family: 'Nanum Gothic', 'Malgun Gothic', 'Dotum', sans-serif; /* 나눔고딕 최우선 적용 */
+    font-family: 'Nanum Gothic', 'Malgun Gothic', 'Dotum', sans-serif;
     background-color: #f4f7f6;
     color: #333;
     line-height: 1.6;
@@ -13,14 +13,37 @@ body {
     margin: 0;
     padding: 20px;
 }
-/* ... (나머지 기본 스타일은 유지) ... */
 
-/* 5. 오버레이 합격증 스타일 */
+.container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+}
+
+/* 2. 폼 및 버튼 (기능을 위한 최소 스타일) */
+#checkForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+#checkForm input, #checkForm button, .print-button {
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+/* 3. 오버레이 합격증 스타일 (핵심) */
 .certificate-box.image-overlay {
     position: relative; 
     border: none; 
     padding: 0;
-    max-width: 700px; /* 이미지의 실제 크기에 맞게 조정 */
+    max-width: 700px; 
     margin: 30px auto;
     overflow: hidden; 
 }
@@ -42,8 +65,8 @@ body {
 /* ✅ 성명 위치 및 폰트 스타일 (굵기 400 통일) */
 .overlay-name {
     position: absolute !important;
-    top: 27% !important;     /* top을 27%로 미세 조정 */
-    left: 17% !important;      /* left를 17%로 조정 */
+    top: 27% !important;     
+    left: 17% !important;      
     font-size: 1.2em !important; 
     font-family: 'Nanum Gothic', sans-serif !important;
     font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
@@ -55,7 +78,7 @@ body {
 .overlay-school {
     position: absolute !important;
     top: 31% !important;   
-    left: 23% !important;    /* left를 23%로 조정 */
+    left: 23% !important;    
     font-size: 1.2em !important; 
     font-family: 'Nanum Gothic', sans-serif !important;
     font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
@@ -64,21 +87,41 @@ body {
 }
 
 
-/* 6. 인쇄용 최적화 CSS: @media print */
+/* 4. 인쇄용 최적화 CSS: @media print (핵심) */
 @media print {
-    /* ... (인쇄용 스타일 유지) ... */
+    body {
+        background-color: white !important;
+        display: block;
+        padding: 0;
+        margin: 0;
+    }
     
-    /* 인쇄 시 텍스트 위치 미세 조정 */
+    /* 인쇄 시 불필요한 요소 숨김 (버튼, 폼 등) */
+    .container > *:not(.admission-pass) {
+        display: none !important;
+    }
+    .print-button, h1, h2, #checkForm {
+        display: none !important;
+    }
+
+    .certificate-box.image-overlay {
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    /* 인쇄 시 텍스트 위치 재확인 (강제 적용) */
     .overlay-name {
-        top: 27%;
-        left: 17%; 
+        top: 27% !important;
+        left: 17% !important; 
         font-weight: 400 !important;
     }
     .overlay-school {
-        top: 31%;
-        left: 23%; 
+        top: 31% !important;
+        left: 23% !important; 
         font-weight: 400 !important;
     }
     
-    /* ... (나머지 인쇄용 CSS 유지) ... */
+    @page {
+        margin: 0.5cm;
+    }
 }
