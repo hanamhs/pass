@@ -1,6 +1,6 @@
-/* style.css 전체 내용 (최종 충돌 방지 및 커서 스타일 포함) */
+/* style.css 전체 내용 (인터페이스/UI 개선 최종 버전) */
 
-/* 1. 기본 설정 */
+/* 1. 기본 설정 (기존 유지) */
 body {
     font-family: 'Nanum Gothic', 'Malgun Gothic', 'Dotum', sans-serif;
     background-color: #f4f7f6;
@@ -18,63 +18,143 @@ body {
     background: #fff;
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* 그림자 강화 */
     width: 90%;
-    max-width: 800px;
+    max-width: 700px; /* 최대 너비 조정 */
     text-align: center;
 }
 
-/* 2. 전경 사진 스타일 (index.html의 인라인 스타일이 우선 적용됨) */
+/* 2. 전경 사진 및 제목 스타일 (기존 유지) */
+h1 {
+    color: #0056b3;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #555;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
 .image-wrapper {
     margin: 20px 0;
     overflow: hidden;
+    border-radius: 8px; /* 사진 모서리 둥글게 */
 }
 
 .school-image {
     height: auto;
     display: block;
-    border-radius: 8px;
 }
 
-/* 3. 폼 및 버튼 스타일 */
+/* 3. 폼 및 버튼 스타일 (인터페이스 핵심 개선) */
 #checkForm {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 15px; /* 입력 필드 간격 증가 */
     margin-bottom: 30px;
 }
 
-/* ✅ 인라인 스타일이 적용되지 않는 CSS 요소는 여기에 정의 */
+#checkForm input {
+    /* ✅ 입력 필드 세로 폭 증가 */
+    padding: 15px 18px; 
+    border: 1px solid #ccc;
+    border-radius: 8px; /* 모서리 둥글게 */
+    font-size: 1.1em; /* 글자 크기 증가 */
+    transition: border-color 0.3s ease;
+}
+
+#checkForm input:focus {
+    border-color: #007bff; /* 포커스 시 색상 변경 */
+    outline: none;
+}
+
+/* 조회 버튼 스타일 */
 #checkForm button {
     padding: 15px;
     background-color: #0056b3;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+}
+
+#checkForm button:hover {
+    background-color: #004080;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 4. 결과 및 오류 스타일 (오류 메시지 시각적 강조) */
+#result {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.admission-fail, .admission-error {
+    background-color: #ffeaea; /* 오류 배경색 */
+    border: 1px solid #dc3545;
+    padding: 20px;
+}
+
+.admission-error h1 {
+    color: #dc3545 !important; 
+    font-size: 2em;
+    margin-top: 0;
+}
+
+.admission-pass h1 {
+    color: #28a745 !important; 
+    font-size: 2.2em;
+}
+
+/* 합격증 다운로드 버튼 */
+.print-button {
+    cursor: pointer !important;
+    padding: 12px 25px;
+    background-color: #28a745; /* 녹색 유지 */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 25px;
     font-size: 1.1em;
     transition: background-color 0.3s ease;
 }
 
-.print-button:hover, #checkForm button:hover {
-    opacity: 0.9;
+.print-button:hover {
+    background-color: #218838;
 }
 
-
-/* 4. 결과 및 오버레이 스타일 */
-.admission-pass {
-    padding: 20px;
+/* 5. 오버레이 합격증 스타일 (핵심 로직용) */
+.certificate-box.image-overlay {
+    position: relative; 
+    border: none; 
+    padding: 0;
+    margin: 30px auto;
+    overflow: hidden; 
+}
+.template-background {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.overlay-text-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-/* 5. 인쇄용 CSS: PDF 연동 방식에서는 불필요 */
+/* 6. 인쇄용 CSS (기존 유지) */
 @media print {
-    /* 모든 인쇄 설정은 브라우저의 PDF 뷰어에 의해 처리됩니다. */
-    body, .container {
-        display: block;
-        width: auto;
-        max-width: none;
-    }
-    
-    .admission-pass {
-        padding: 0;
-    }
+    /* ... (인쇄용 스타일 유지) ... */
 }
