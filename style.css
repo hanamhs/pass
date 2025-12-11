@@ -1,4 +1,4 @@
-/* style.css 전체 내용 (최종 좌표 및 폰트 설정) */
+/* style.css 전체 내용 (위치 및 폰트 최종 조정) */
 
 /* 1. 기본 설정 */
 body {
@@ -43,7 +43,7 @@ h2 {
     margin-bottom: 30px;
     border-radius: 8px;
     overflow: hidden;
-    max-height: 300px; /* 미리보기 이미지 높이 제한 */
+    max-height: 300px;
 }
 
 .school-image {
@@ -149,11 +149,11 @@ h2 {
 /* ✅ 성명 위치 및 폰트 스타일 (최종 조정 좌표) */
 .overlay-name {
     position: absolute;
-    top: 27.5%;     
-    left: 23%;      
+    top: 27.5%;     /* top을 27.5%로 유지 */
+    left: 23%;      /* left를 23%로 유지 */
     font-size: 1.1em; 
     font-family: 'Nanum Gothic', sans-serif;
-    font-weight: bold;
+    font-weight: normal; /* 폰트 굵기를 보통으로 변경 */
     color: #000;
     white-space: nowrap;
 }
@@ -165,7 +165,7 @@ h2 {
     left: 32%;    
     font-size: 1.1em; 
     font-family: 'Nanum Gothic', sans-serif;
-    font-weight: normal;
+    font-weight: normal; /* 폰트 굵기를 보통으로 변경 */
     color: #000;
     white-space: nowrap;
 }
@@ -199,6 +199,16 @@ h2 {
     .template-background {
         width: 100% !important;
         height: auto !important;
+    }
+    
+    /* 인쇄 시 텍스트 위치 미세 조정 */
+    .overlay-name {
+        top: 27.5%;
+        left: 23%; 
+    }
+    .overlay-school {
+        top: 31.5%;
+        left: 32%; 
     }
     
     /* 인쇄 시 여백 최소화 */
