@@ -22,11 +22,15 @@
         <form id="checkForm">
             <h2>합격자 조회를 위해 네 가지 정보를 정확히 입력해 주세요.</h2>
             
-            <input type="text" id="schoolName" placeholder="출신 중학교명 (예: 윤슬중학교)" required>
+            <p style="font-size: 0.9em; color: #dc3545; font-weight: bold;">
+                * 검정고시 합격생은 **출신 중학교명**에 '검정고시자', **반**과 **번호**에 '0'을 입력해주세요.
+            </p>
+
+            <input type="text" id="schoolName" placeholder="출신 중학교명 (예: 윤슬중학교 / 검정고시자)" required>
             
-            <input type="number" id="classNumber" placeholder="반 (예: 5)" required>
+            <input type="number" id="classNumber" placeholder="반 (예: 5 / 0)" required>
             
-            <input type="number" id="studentNumber" placeholder="번호 (예: 26)" required>
+            <input type="number" id="studentNumber" placeholder="번호 (예: 26 / 0)" required>
             
             <input type="text" id="studentName" placeholder="이름을 입력하세요" required>
 
