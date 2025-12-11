@@ -371,19 +371,38 @@ function checkAdmission(event) {
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 (인라인 스타일 적용)
+// 3. 결과 HTML 생성 함수들 (최종 인라인 스타일 강제 적용)
 // =======================================================================
 
 function getPassHtml(data) {
-    // 인라인 스타일로 최종 위치와 폰트 굵기를 강제 적용합니다.
+    // 인라인 스타일로 최종 위치, 폰트 굵기, 컨테이너 너비를 강제 적용합니다.
     const certificateHtml = `
         <div class="admission-pass">
             <h1 style="color: #0056b3;">🎉 합격자 발표 확인 🎉</h1>
             
-            <div class="certificate-box image-overlay" id="printableArea">
-                <img src="./images/certificate_template.jpg" alt="합격증 양식" class="template-background">
+            <div class="certificate-box image-overlay" id="printableArea" style="
+                position: relative !important;
+                border: none !important;
+                padding: 0 !important;
+                /* 그림 크기 문제 해결: 최대 너비를 100%로 강제 설정 */
+                max-width: 100% !important; 
+                width: 700px !important; 
+                margin: 0 auto !important;
+                overflow: hidden !important;
+            ">
+                <img src="./images/certificate_template.jpg" alt="합격증 양식" class="template-background" style="
+                    width: 100% !important;
+                    height: auto !important;
+                    display: block !important;
+                ">
                 
-                <div class="overlay-text-container">
+                <div class="overlay-text-container" style="
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                ">
                     <p class="overlay-name" style="
                         position: absolute !important;
                         top: 27% !important;     
@@ -392,7 +411,7 @@ function getPassHtml(data) {
                         font-family: 'Nanum Gothic', sans-serif !important;
                         font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
                         color: #000 !important;
-                        white-space: nowrap;
+                        white-space: nowrap !important;
                     "> ${data.name}</p>
                     
                     <p class="overlay-school" style="
@@ -403,7 +422,7 @@ function getPassHtml(data) {
                         font-family: 'Nanum Gothic', sans-serif !important;
                         font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
                         color: #000 !important;
-                        white-space: nowrap;
+                        white-space: nowrap !important;
                     "> ${data.school}</p>
                 </div>
             </div>
@@ -436,7 +455,6 @@ function getErrorHtml(message) {
 // =======================================================================
 // 4. 합격증 출력 기능 및 오디오 제어 함수 (인쇄 오류 방지 최종 버전)
 // =======================================================================
-
 function printCertificate() {
     const schoolSong = document.getElementById('schoolSong');
     if (schoolSong) {
