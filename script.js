@@ -1,10 +1,9 @@
 // =======================================================================
 // 1. 합격/불합격자 명단 통합 데이터 (최종)
-//    - 합격자 명단과 불합격자 명단(5명)이 모두 포함됩니다.
-//    - status 필드가 "합격" 또는 "불합격"으로 명확히 구분됩니다.
+//    - 이전에 주신 모든 명단 정보가 포함되어 있습니다.
 // =======================================================================
 const candidates = [
-    // --- 합격자 명단 ---
+    // --- 합격자 명단 (총 295명) ---
     { school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격" },
     { school: "덕풍중학교", class: 5, number: 22, name: "이준", status: "합격" },
     { school: "덕풍중학교", class: 4, number: 21, name: "유재은", status: "합격" },
@@ -346,7 +345,7 @@ const candidates = [
     { school: "윤슬중학교", class: 3, number: 10, name: "김태린", status: "합격" },
     { school: "윤슬중학교", class: 11, number: 24, name: "정우민", status: "합격" },
     { school: "미사중학교", class: 1, number: 22, name: "유연지", status: "합격" },
-    // --- 불합격자 명단 ---
+    // --- 불합격자 명단 (총 5명) ---
     { school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격" },
     { school: "신평중학교", class: 3, number: 21, name: "전요한", status: "불합격" },
     { school: "윤슬중학교", class: 2, number: 20, name: "윤영빈", status: "불합격" },
@@ -356,15 +355,13 @@ const candidates = [
 
 
 // =======================================================================
-// 2. 조회 로직 및 이벤트 리스너
+// 2. 조회 로직 및 이벤트 리스너 (안전 로직 포함)
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
     if (checkForm) {
-        // [핵심] 폼 제출 이벤트를 감지하여 checkAdmission 함수 실행
         checkForm.addEventListener('submit', checkAdmission); 
     } else {
-        // [경로/ID 문제 발생 시] HTML에서 checkForm ID를 찾지 못했을 때 콘솔에 오류 메시지 출력
         console.error("오류: index.html에서 'checkForm' ID를 가진 <form> 요소를 찾을 수 없습니다."); 
     }
 });
@@ -380,24 +377,19 @@ function checkAdmission(event) {
     const resultDiv = document.getElementById('result');
     const schoolSong = document.getElementById('schoolSong');
 
-    // [핵심] 입력 요소가 null인지 확인 (오류가 났던 23번째 줄에 대한 안전 로직)
+    // [안전 로직] 입력 요소 ID가 HTML에 있는지 먼저 확인합니다.
     if (!schoolInput || !classInput || !numberInput || !nameInput) {
         resultDiv.innerHTML = getErrorHtml("필수 입력 요소 중 일부를 찾을 수 없습니다. (HTML ID 오류)");
-        
-        // Console에 정확한 디버깅 정보 출력
-        console.error("HTML 요소 오류: schoolName, classNumber, studentNumber, studentName 중 하나가 누락되었습니다.");
-        
+        console.error("HTML 요소 오류: schoolName, classNumber, studentNumber, studentName 중 하나가 누락되었습니다. index.html을 확인하세요.");
         stopAndResetSong(schoolSong);
         return;
     }
 
-    // 입력값 가져오기 (이제 안전하게 .value를 읽을 수 있습니다)
+    // 입력값 가져오기
     const inputSchool = schoolInput.value.trim();
     const inputClass = parseInt(classInput.value.trim());
     const inputNumber = parseInt(numberInput.value.trim());
     const inputName = nameInput.value.trim();
-    
-    // ... (이하 로직은 동일)
     
     // 입력값 유효성 검사 (공백/숫자 여부)
     if (!inputSchool || isNaN(inputClass) || isNaN(inputNumber) || !inputName) {
@@ -429,40 +421,49 @@ function checkAdmission(event) {
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 
+// 3. 결과 HTML 생성 함수들 (HWP 양식 및 워터마크 반영)
 // =======================================================================
 
 function getPassHtml(data) {
+    // 합격증 양식 (한글 양식을 반영한 최종 HTML)
     const certificateHtml = `
         <div class="admission-pass">
-            <h1>🎉 하남고등학교 합격자 발표 🎉</h1>
+            <h1 style="color: #0056b3;">🎉 합격자 발표 확인 🎉</h1>
+            
             <div class="certificate-box" id="printableArea">
-                <h2 style="color: #0056b3;">2026학년도 신입생 합격증</h2>
+                <h2 class="certificate-title">합 격 증 명 서</h2>
+                
                 <table class="certificate-table">
                     <tr>
-                        <td class="label">성 명:</td>
+                        <td class="label" style="width: 120px;">성 명:</td>
                         <td><span id="printName">${data.name}</span></td>
                     </tr>
                     <tr>
                         <td class="label">출신 중학교:</td>
                         <td><span id="printSchool">${data.school}</span></td>
                     </tr>
-                    <tr>
-                        <td class="label">반 / 번호:</td>
-                        <td><span id="printClassNum">${data.class}반 ${data.number}번</span></td>
-                    </tr>
                 </table>
-                <p class="message">위 학생은 본교의 2026학년도 신입생으로 최종 합격되었음을 증명합니다.</p>
-                <div class="school-info">
-                    <p>2024년 12월 11일</p>
-                    <p>하남고등학교장</p>
-                </div>
+
+                <p class="message print-content">
+                  위 사람은 본교의 2026학년도 입학전형에 합격하였음을 증명함
+                </p>
+                
+                <div class="school-info print-content">
+                    <p>2025년 12월 12일</p>
+                    <p style="margin-top: 20px; font-size: 1.1em; font-weight: bold;">하남고등학교장</p>
+                    </div>
+                
                 <div class="gyoga-section">
                     <h3>빛나는 하남고등학교 교가</h3>
-                    <pre class="gyoga-lyrics">// 여기에 실제 교가 가사를 넣어주세요.</pre>
+                    <pre class="gyoga-lyrics">
+// 실제 교가 가사를 여기에 넣어주시면 됩니다.
+푸른 기상 한데 모아 우뚝 솟은 하남 동산
+배움의 터전 넓혀가니 지혜로운 꿈 펼치네
+                    </pre>
                 </div>
             </div>
-            <button onclick="printCertificate()" class="print-button">합격증 출력</button>
+            
+            <button onclick="printCertificate()" class="print-button">합격증 인쇄</button>
         </div>
     `;
     return certificateHtml;
@@ -492,15 +493,30 @@ function getErrorHtml(message) {
 // =======================================================================
 
 function printCertificate() {
-    const printContents = document.getElementById('printableArea').innerHTML;
+    // 인쇄 영역을 HTML 본문으로 대체하기 전에 원래 내용을 저장합니다.
     const originalContents = document.body.innerHTML;
+    // 인쇄할 내용 (ID: printableArea)만 가져옵니다.
+    const printContents = document.getElementById('printableArea').innerHTML;
+    
+    // 인쇄용 CSS가 적용되도록 HTML 본문을 인쇄 내용으로 교체합니다.
     document.body.innerHTML = printContents;
+    
+    // 브라우저 인쇄 대화상자 호출
     window.print();
+    
+    // 인쇄 후 원래 페이지 내용으로 복원
     document.body.innerHTML = originalContents;
-    document.getElementById('checkForm').addEventListener('submit', checkAdmission);
+    
+    // 복원 후, 폼 이벤트 리스너를 다시 연결해야 합니다.
+    const checkForm = document.getElementById('checkForm');
+    if (checkForm) {
+        checkForm.addEventListener('submit', checkAdmission);
+    }
 }
 
 function stopAndResetSong(audioElement) {
-    audioElement.pause();
-    audioElement.currentTime = 0;
+    if (audioElement) {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+    }
 }
