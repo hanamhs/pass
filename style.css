@@ -43,7 +43,6 @@ body {
     position: relative; 
     border: none; 
     padding: 0;
-    max-width: 700px; 
     margin: 30px auto;
     overflow: hidden; 
 }
