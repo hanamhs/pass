@@ -1,4 +1,4 @@
-/* style.css 전체 내용 (충돌 최소화 및 커서 스타일 포함) */
+/* style.css 전체 내용 (최종 충돌 방지 및 커서 스타일 포함) */
 
 /* 1. 기본 설정 */
 body {
@@ -24,23 +24,13 @@ body {
     text-align: center;
 }
 
-/* 2. 전경 사진 및 제목 스타일 */
-h1 {
-    color: #0056b3;
-    margin-bottom: 20px;
-    font-size: 2.5em;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-}
-
-/* ✅ 전경 사진 크기 복구 스타일 (max-width는 index.html에서 인라인으로 강제 적용) */
+/* 2. 전경 사진 스타일 (index.html의 인라인 스타일이 우선 적용됨) */
 .image-wrapper {
     margin: 20px 0;
     overflow: hidden;
 }
 
 .school-image {
-    /* max-width는 index.html에서 강제 적용 */
     height: auto;
     display: block;
     border-radius: 8px;
@@ -54,13 +44,7 @@ h1 {
     margin-bottom: 30px;
 }
 
-#checkForm input {
-    padding: 12px 15px;
-    border-radius: 6px;
-    font-size: 1em;
-}
-
-/* ✅ 조회 버튼 스타일 (cursor: pointer는 index.html에서 강제 적용) */
+/* ✅ 인라인 스타일이 적용되지 않는 CSS 요소는 여기에 정의 */
 #checkForm button {
     padding: 15px;
     background-color: #0056b3;
@@ -71,73 +55,26 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-#checkForm button:hover {
-    background-color: #004080;
-}
-
-/* ✅ 인쇄 버튼 스타일 (cursor: pointer는 script.js에서 강제 적용) */
-.print-button {
-    padding: 10px 20px;
-    background-color: #17a2b8;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin-top: 20px;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-}
-
-.print-button:hover {
-    background-color: #138496;
+.print-button:hover, #checkForm button:hover {
+    opacity: 0.9;
 }
 
 
-/* 4. 오버레이 합격증 스타일 (핵심) */
-.certificate-box.image-overlay {
-    position: relative; 
-    border: none; 
-    padding: 0;
-    margin: 30px auto;
-    overflow: hidden; 
+/* 4. 결과 및 오버레이 스타일 */
+.admission-pass {
+    padding: 20px;
 }
 
-.template-background {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.overlay-text-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* 5. 인쇄용 최적화 CSS: @media print (핵심) */
+/* 5. 인쇄용 CSS: PDF 연동 방식에서는 불필요 */
 @media print {
-    body {
-        background-color: white !important;
+    /* 모든 인쇄 설정은 브라우저의 PDF 뷰어에 의해 처리됩니다. */
+    body, .container {
         display: block;
+        width: auto;
+        max-width: none;
+    }
+    
+    .admission-pass {
         padding: 0;
-        margin: 0;
-    }
-    
-    /* 인쇄 시 불필요한 요소 숨김 (버튼, 폼 등) */
-    .container > *:not(.admission-pass) {
-        display: none !important;
-    }
-    .print-button, h1, h2, #checkForm {
-        display: none !important;
-    }
-
-    .certificate-box.image-overlay {
-        max-width: 100%;
-        margin: 0;
-    }
-    
-    @page {
-        margin: 0.5cm;
     }
 }
