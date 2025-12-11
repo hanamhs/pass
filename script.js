@@ -375,7 +375,7 @@ function checkAdmission(event) {
 // =======================================================================
 
 function getPassHtml(data) {
-    // 합격증 PDF 파일 경로 (영문으로 업로드할 최종 PDF 파일명으로 변경하세요)
+    // ✅ PDF 파일명에 맞춰 최종 수정
     const pdfPath = './images/hanam_admission_certificate.pdf'; 
 
     return `
