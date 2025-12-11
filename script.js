@@ -1,5 +1,6 @@
 // =======================================================================
 // 1. 합격/불합격자 명단 통합 데이터 (접수번호 기반 전체 내용)
+// ... (데이터 배열은 그대로 유지) ...
 // =======================================================================
 const candidates = [
     // --- 합격/불합격자 명단 (접수번호, 학교, 이름 등 전체 데이터) ---
@@ -413,11 +414,12 @@ function checkAdmission(event) {
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 (✅ PDF 경로를 applicationNumber로 생성)
+// 3. 결과 HTML 생성 함수들 (✅ 메시지 필드 복구 및 PDF 경로 수정)
 // =======================================================================
 
 function getPassHtml(data) {
     // 💡 PDF 파일 경로를 [applicationNumber].pdf 형식으로 생성
+    // 6자리 접수번호를 사용합니다.
     const applicationNumber = data.applicationNumber; 
     
     const pdfPath = `./images/${applicationNumber}.pdf`; 
@@ -426,10 +428,14 @@ function getPassHtml(data) {
         <div class="admission-pass">
             <h1>🎉 합격자 발표 확인 🎉</h1>
             
-            <p>축하합니다, <strong style="font-size: 1.1em;">${data.name}</strong> 학생! 
-               출신 중학교: <strong>${data.school}</strong></p>
+            <p style="font-size: 1.5em; font-weight: bold; margin-bottom: 5px;">
+                <strong style="color: #28a745;">${data.name} 학생</strong>
+            </p>
+            <p style="font-size: 1.2em; margin-bottom: 20px;">
+                (출신 중학교: ${data.school})
+            </p>
             
-            <p style="margin-top: 20px; font-weight: bold; color: #0056b3;">
+            <p style="margin-top: 10px; font-weight: bold; color: #0056b3;">
                 접수번호 **${applicationNumber}**로 2026학년도 신입학 전형에 합격하셨습니다.
             </p>
             
