@@ -427,7 +427,7 @@ function getPassHtml(data) {
                 </div>
             </div>
             
-            <button onclick="printCertificate()" class="print-button">합격증 인쇄</button>
+            <button onclick="printCertificate()" class="print-button" style="cursor: pointer !important;">합격증 인쇄</button>
         </div>
     `;
     return certificateHtml;
