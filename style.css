@@ -1,6 +1,6 @@
-/* style.css 전체 내용 (오직 합격증과 필수 디자인만 남긴 단순화 버전) */
+/* style.css 전체 내용 (충돌 제거 버전) */
 
-/* 1. 기본 설정 (가장 기본적인 폰트 및 배경 설정) */
+/* 1. 기본 설정 */
 body {
     font-family: 'Nanum Gothic', 'Malgun Gothic', 'Dotum', sans-serif;
     background-color: #f4f7f6;
@@ -62,27 +62,14 @@ body {
     height: 100%;
 }
 
-/* ✅ 성명 위치 및 폰트 스타일 (굵기 400 통일) */
+/* ⚠️ 폰트/위치 스타일은 script.js의 인라인 스타일이 적용되도록 CSS 파일에서는 제거 */
 .overlay-name {
-    position: absolute !important;
-    top: 27% !important;     
-    left: 17% !important;      
-    font-size: 1.2em !important; 
-    font-family: 'Nanum Gothic', sans-serif !important;
-    font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
-    color: #000 !important;
+    position: absolute;
     white-space: nowrap;
 }
 
-/* ✅ 출신 중학교 위치 및 폰트 스타일 (굵기 400 통일) */
 .overlay-school {
-    position: absolute !important;
-    top: 31% !important;   
-    left: 23% !important;    
-    font-size: 1.2em !important; 
-    font-family: 'Nanum Gothic', sans-serif !important;
-    font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
-    color: #000 !important;
+    position: absolute;
     white-space: nowrap;
 }
 
@@ -107,18 +94,6 @@ body {
     .certificate-box.image-overlay {
         max-width: 100%;
         margin: 0;
-    }
-    
-    /* 인쇄 시 텍스트 위치 재확인 (강제 적용) */
-    .overlay-name {
-        top: 27% !important;
-        left: 17% !important; 
-        font-weight: 400 !important;
-    }
-    .overlay-school {
-        top: 31% !important;
-        left: 23% !important; 
-        font-weight: 400 !important;
     }
     
     @page {
