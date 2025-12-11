@@ -1,6 +1,10 @@
+/* style.css 전체 내용 */
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Malgun Gothic', 'Dotum', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,83 +12,233 @@ body {
     margin: 0;
     padding: 20px;
 }
+
 .container {
     background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
     text-align: center;
-    max-width: 600px;
-    width: 100%;
 }
+
 h1 {
-    color: #1a237e;
-    font-size: 2.2em;
-    margin-bottom: 20px;
+    color: #0056b3;
+    margin-bottom: 25px;
+    font-size: 2em;
+    border-bottom: 3px solid #eee;
+    padding-bottom: 10px;
 }
+
+h2 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.image-wrapper {
+    margin: 20px 0;
+}
+
 .school-image {
-    width: 100%;
+    max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-input {
-    width: calc(100% - 22px);
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+
+#checkForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+#checkForm input {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
     font-size: 1em;
-    box-sizing: border-box;
 }
-button {
-    width: 100%;
-    padding: 15px;
-    background-color: #4CAF50;
+
+#checkForm button {
+    background-color: #0056b3;
     color: white;
+    padding: 15px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
-button:hover {
-    background-color: #45a049;
+
+#checkForm button:hover {
+    background-color: #004085;
 }
+
+/* 조회 결과 영역 스타일 */
 #result {
     margin-top: 30px;
 }
-.pass-message {
-    color: #2e7d32;
-    animation: fadeIn 1s ease-in-out;
-}
-.fail-message {
-    color: #d32f2f;
-    animation: fadeIn 1s ease-in-out;
-}
-.error-message {
-    color: #ff9800;
-    animation: fadeIn 1s ease-in-out;
-}
-.pass-message h2, .fail-message h2, .error-message h2 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-}
-.pass-message p, .fail-message p, .error-message p {
-    font-size: 1.1em;
-    line-height: 1.6;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-#printCertificate {
-    margin-top: 20px;
-    background-color: #1565c0;
-    font-size: 1em;
-    padding: 12px;
-}
-#printCertificate:hover {
-    background-color: #0d47a1;
+
+.admission-error, .admission-fail {
+    background-color: #ffe0e0;
+    border: 1px solid #ff4d4d;
+    padding: 20px;
+    border-radius: 8px;
+    color: #cc0000;
 }
 
+.admission-error h1, .admission-fail h1 {
+    color: #cc0000;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* 합격증 스타일 */
+.admission-pass {
+    background-color: #e6f7ff;
+    border: 1px solid #0056b3;
+    padding: 20px;
+    border-radius: 8px;
+    color: #333;
+}
+
+/* 워터마크가 적용될 영역 */
+.certificate-box {
+    border: 3px solid #ccc;
+    padding: 30px;
+    margin: 30px auto;
+    max-width: 700px;
+    text-align: left;
+    position: relative; /* 워터마크 배치를 위한 설정 */
+    overflow: hidden; 
+    background-color: #fff; /* 배경색 지정 (워터마크 투명도 때문에 필요) */
+    z-index: 1; /* 컨테이너를 기본 z-index 위로 올림 */
+}
+
+/* 🏆 워터마크 스타일 (순서 1의 파일명과 일치해야 합니다) */
+.certificate-box::before {
+    content: "";
+    background-image: url('./images/hanam_logo_mark.png'); /* 파일명 확인 필수 */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 70%; 
+    opacity: 0.15; /* 투명도 */
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* 합격증 내용 뒤로 배치 */
+}
+
+
+.certificate-title {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 40px;
+    border-bottom: 3px solid #000;
+    padding-bottom: 10px;
+    position: relative; 
+    z-index: 2; /* 내용이 워터마크 위에 오도록 */
+}
+
+.certificate-table {
+    width: 100%;
+    margin-bottom: 30px;
+    border-collapse: collapse;
+    position: relative;
+    z-index: 2; /* 내용이 워터마크 위에 오도록 */
+}
+
+.certificate-table .label {
+    font-weight: bold;
+    padding: 10px 0;
+    padding-right: 15px;
+    width: 150px;
+}
+
+.message {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 1.1em;
+    position: relative;
+    z-index: 2;
+}
+
+.school-info {
+    text-align: right;
+    margin-top: 50px;
+    margin-right: 20%;
+    line-height: 2;
+    position: relative;
+    z-index: 2;
+}
+
+.gyoga-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+}
+
+.print-button {
+    background-color: #28a745 !important;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.print-button:hover {
+    background-color: #1e7e34 !important;
+}
+
+/* 인쇄용 최적화 CSS: @media print */
+@media print {
+    /* 인쇄할 때는 불필요한 요소 숨김 (버튼, 헤더, 배경 등) */
+    body > *:not(.admission-pass) {
+        display: none !important;
+    }
+    
+    /* 합격증 출력 영역만 보이게 함 */
+    .admission-pass {
+        width: 100%;
+        margin: 0;
+        background-color: white !important; /* 배경색 제거 */
+        border: none !important;
+    }
+    
+    /* 합격증 박스 테두리를 종이 전체 폭에 맞게 조정 */
+    .certificate-box {
+        border: none !important; /* 인쇄 시 테두리 제거 */
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        box-shadow: none;
+    }
+    
+    /* 교가 섹션은 인쇄하지 않음 */
+    .gyoga-section {
+        display: none !important;
+    }
+
+    /* 화면에서만 보이는 제목 숨기기 */
+    .admission-pass h1 {
+        display: none !important;
+    }
+
+    /* 인쇄 시 여백을 최소화 */
+    @page {
+        margin: 1.5cm; /* 용지 여백 설정 */
+    }
+}
