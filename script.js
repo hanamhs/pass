@@ -1,9 +1,8 @@
 // =======================================================================
 // 1. 합격/불합격자 명단 통합 데이터 (최종)
-//    - 이전에 주신 모든 명단 정보가 포함되어 있습니다.
 // =======================================================================
 const candidates = [
-    // --- 합격자 명단 (총 295명) ---
+    // --- 합격자 명단 ---
     { school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격" },
     { school: "덕풍중학교", class: 5, number: 22, name: "이준", status: "합격" },
     { school: "덕풍중학교", class: 4, number: 21, name: "유재은", status: "합격" },
@@ -421,45 +420,21 @@ function checkAdmission(event) {
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 (HWP 양식 및 워터마크 반영)
+// 3. 결과 HTML 생성 함수들 (이미지 오버레이 방식으로 최종 교체)
 // =======================================================================
 
 function getPassHtml(data) {
-    // 합격증 양식 (한글 양식을 반영한 최종 HTML)
+    // 이미지 오버레이 방식을 위한 HTML 구조
     const certificateHtml = `
         <div class="admission-pass">
             <h1 style="color: #0056b3;">🎉 합격자 발표 확인 🎉</h1>
             
-            <div class="certificate-box" id="printableArea">
-                <h2 class="certificate-title">합 격 증 명 서</h2>
+            <div class="certificate-box image-overlay" id="printableArea">
+                <img src="./images/certificate_template.jpg" alt="합격증 양식" class="template-background">
                 
-                <table class="certificate-table">
-                    <tr>
-                        <td class="label" style="width: 120px;">성 명:</td>
-                        <td><span id="printName">${data.name}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="label">출신 중학교:</td>
-                        <td><span id="printSchool">${data.school}</span></td>
-                    </tr>
-                </table>
-
-                <p class="message print-content">
-                  위 사람은 본교의 2026학년도 입학전형에 합격하였음을 증명함
-                </p>
-                
-                <div class="school-info print-content">
-                    <p>2025년 12월 12일</p>
-                    <p style="margin-top: 20px; font-size: 1.1em; font-weight: bold;">하남고등학교장</p>
-                    </div>
-                
-                <div class="gyoga-section">
-                    <h3>빛나는 하남고등학교 교가</h3>
-                    <pre class="gyoga-lyrics">
-// 실제 교가 가사를 여기에 넣어주시면 됩니다.
-푸른 기상 한데 모아 우뚝 솟은 하남 동산
-배움의 터전 넓혀가니 지혜로운 꿈 펼치네
-                    </pre>
+                <div class="overlay-text-container">
+                    <p class="overlay-name"> ${data.name}</p>
+                    <p class="overlay-school"> ${data.school}</p>
                 </div>
             </div>
             
@@ -493,21 +468,16 @@ function getErrorHtml(message) {
 // =======================================================================
 
 function printCertificate() {
-    // 인쇄 영역을 HTML 본문으로 대체하기 전에 원래 내용을 저장합니다.
     const originalContents = document.body.innerHTML;
-    // 인쇄할 내용 (ID: printableArea)만 가져옵니다.
     const printContents = document.getElementById('printableArea').innerHTML;
     
     // 인쇄용 CSS가 적용되도록 HTML 본문을 인쇄 내용으로 교체합니다.
     document.body.innerHTML = printContents;
     
-    // 브라우저 인쇄 대화상자 호출
     window.print();
     
-    // 인쇄 후 원래 페이지 내용으로 복원
     document.body.innerHTML = originalContents;
     
-    // 복원 후, 폼 이벤트 리스너를 다시 연결해야 합니다.
     const checkForm = document.getElementById('checkForm');
     if (checkForm) {
         checkForm.addEventListener('submit', checkAdmission);
