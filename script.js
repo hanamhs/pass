@@ -1,5 +1,5 @@
 // =======================================================================
-// 1. 합격/불합격자 명단 통합 데이터 (최종)
+// 1. 합격/불합격자 명단 통합 데이터 (전체 내용)
 // =======================================================================
 const candidates = [
     // --- 합격자 명단 ---
@@ -274,75 +274,30 @@ const candidates = [
     { school: "하남중학교", class: 4, number: 22, name: "이재율", status: "합격" },
     { school: "윤슬중학교", class: 8, number: 7, name: "김혜민", status: "합격" },
     { school: "윤슬중학교", class: 2, number: 9, name: "김한동", status: "합격" },
-    { school: "윤슬중학교", class: 10, number: 28, name: "최민지", status: "합격" },
-    { school: "미사강변중학교", class: 3, number: 20, name: "이시혁", status: "합격" },
-    { school: "윤슬중학교", class: 12, number: 25, name: "이채원", status: "합격" },
-    { school: "윤슬중학교", class: 7, number: 8, name: "김은광", status: "합격" },
-    { school: "미사중학교", class: 3, number: 11, name: "배서현", status: "합격" },
-    { school: "윤슬중학교", class: 13, number: 3, name: "김서윤", status: "합격" },
-    { school: "은가람중학교", class: 4, number: 25, name: "전빈", status: "합격" },
-    { school: "윤슬중학교", class: 13, number: 29, name: "함아윤", status: "합격" },
-    { school: "하남중학교", class: 1, number: 10, name: "민래원", status: "합격" },
-    { school: "윤슬중학교", class: 1, number: 21, name: "이재윤", status: "합격" },
-    { school: "윤슬중학교", class: 5, number: 2, name: "강우현", status: "합격" },
-    { school: "감일백제중학교", class: 4, number: 24, name: "주하은", status: "합격" },
-    { school: "미사중학교", class: 13, number: 23, name: "이정한", status: "합격" },
-    { school: "윤슬중학교", class: 10, number: 23, name: "임탐", status: "합격" },
-    { school: "미사강변중학교", class: 9, number: 15, name: "양현우", status: "합격" },
-    { school: "윤슬중학교", class: 9, number: 28, name: "장준호", status: "합격" },
-    { school: "미사강변중학교", class: 9, number: 30, name: "허원재", status: "합격" },
-    { school: "미사중학교", class: 8, number: 27, name: "조아인", status: "합격" },
-    { school: "윤슬중학교", class: 13, number: 18, name: "우혜원", status: "합격" },
-    { school: "윤슬중학교", class: 1, number: 19, name: "유예늘", status: "합격" },
-    { school: "미사중학교", class: 1, number: 24, name: "이광재", status: "합격" },
-    { school: "검정고시자", class: null, number: null, name: "강승우", status: "합격" },
-    { school: "은가람중학교", class: 7, number: 4, name: "김나림", status: "합격" },
-    { school: "미사중학교", class: 7, number: 13, name: "김이록", status: "합격" },
-    { school: "검정고시자", class: null, number: null, name: "김희람", status: "합격" },
-    { school: "검정고시자", class: null, number: null, name: "박신우", status: "합격" },
-    { school: "윤슬중학교", class: 7, number: 5, name: "김승준", status: "합격" },
-    { school: "윤슬중학교", class: 12, number: 27, name: "장세희", status: "합격" },
-    { school: "윤슬중학교", class: 3, number: 14, name: "박지민", status: "합격" },
-    { school: "미사중학교", class: 3, number: 31, name: "최솔", status: "합격" },
-    { school: "미사중학교", class: 7, number: 7, name: "김민서", status: "합격" },
-    { school: "윤슬중학교", class: 10, number: 3, name: "김도윤", status: "합격" },
-    { school: "윤슬중학교", class: 7, number: 30, name: "차예담", status: "합격" },
-    { school: "윤슬중학교", class: 9, number: 29, name: "정상연", status: "합격" },
-    { school: "윤슬중학교", class: 2, number: 30, name: "최민호", status: "합격" },
-    { school: "윤슬중학교", class: 4, number: 8, name: "김태율", status: "합격" },
-    { school: "은가람중학교", class: 1, number: 11, name: "김준영", status: "합격" },
-    { school: "미사강변중학교", class: 4, number: 4, name: "김범규", status: "합격" },
-    { school: "윤슬중학교", class: 10, number: 17, name: "이도현", status: "합격" },
-    { school: "윤슬중학교", class: 6, number: 29, name: "최윤지", status: "합격" },
-    { school: "윤슬중학교", class: 5, number: 15, name: "서다현", status: "합격" },
-    { school: "윤슬중학교", class: 7, number: 1, name: "국현", status: "합격" },
-    { school: "미사중학교", class: 9, number: 22, name: "정민주", status: "합격" },
-    { school: "감일백제중학교", class: 5, number: 3, name: "길해리", status: "합격" },
-    { school: "미사중학교", class: 2, number: 28, name: "정예원", status: "합격" },
-    { school: "윤슬중학교", class: 2, number: 7, name: "김지훈", status: "합격" },
-    { school: "은가람중학교", class: 3, number: 3, name: "김선율", status: "합격" },
-    { school: "윤슬중학교", class: 11, number: 3, name: "김가람", status: "합격" },
-    { school: "윤슬중학교", class: 7, number: 20, name: "이소율", status: "합격" },
-    { school: "미사강변중학교", class: 6, number: 32, name: "최준서", status: "합격" },
-    { school: "미사중학교", class: 5, number: 33, name: "황지유", status: "합격" },
-    { school: "윤슬중학교", class: 1, number: 23, name: "이준혁", status: "합격" },
-    { school: "윤슬중학교", class: 13, number: 10, name: "김하윤", status: "합격" },
-    { school: "미사강변중학교", class: 6, number: 18, name: "윤여슬", status: "합격" },
-    { school: "윤슬중학교", class: 9, number: 4, name: "김우주", status: "합격" },
-    { school: "미사중학교", class: 4, number: 19, name: "이혜선", status: "합격" },
-    { school: "미사강변중학교", class: 5, number: 18, name: "안서현", status: "합격" },
-    { school: "미사강변중학교", class: 13, number: 29, name: "최서연", status: "합격" },
-    { school: "미사중학교", class: 7, number: 3, name: "권준성", status: "합격" },
-    { school: "윤슬중학교", class: 8, number: 16, name: "오지훈", status: "합격" },
-    { school: "미사중학교", class: 8, number: 29, name: "조훈률", status: "합격" },
-    { school: "미사강변중학교", class: 3, number: 29, name: "탁연후", status: "합격" },
-    { school: "미사중학교", class: 4, number: 16, name: "이정모", status: "합격" },
-    { school: "윤슬중학교", class: 2, number: 28, name: "조동일", status: "합격" },
-    { school: "미사강변중학교", class: 13, number: 23, name: "이승민", status: "합격" },
-    { school: "미사중학교", class: 9, number: 31, name: "최종서", status: "합격" },
-    { school: "윤슬중학교", class: 1, number: 3, name: "김민서", status: "합격" },
-    { school: "윤슬중학교", class: 3, number: 10, name: "김태린", status: "합격" },
-    { school: "윤슬중학교", class: 11, number: 24, name: "정우민", status: "합격" },
+    { school: "윤슬중학교", class: 12, number: 1, name: "강현우", status: "합격" },
+    { school: "윤슬중학교", class: 10, number: 13, name: "박은찬", status: "합격" },
+    { school: "윤슬중학교", class: 10, number: 29, name: "정승우", status: "합격" },
+    { school: "신평중학교", class: 2, number: 10, name: "박지호", status: "합격" },
+    { school: "덕풍중학교", class: 5, number: 15, name: "박주원", status: "합격" },
+    { school: "미사중학교", class: 13, number: 22, name: "최은솔", status: "합격" },
+    { school: "미사강변중학교", class: 12, number: 2, name: "김나현", status: "합격" },
+    { school: "윤슬중학교", class: 7, number: 21, name: "이원준", status: "합격" },
+    { school: "미사강변중학교", class: 9, number: 13, name: "박하연", status: "합격" },
+    { school: "미사중학교", class: 13, number: 23, name: "홍연주", status: "합격" },
+    { school: "미사중학교", class: 6, number: 15, name: "박채은", status: "합격" },
+    { school: "미사강변중학교", class: 1, number: 24, name: "윤지우", status: "합격" },
+    { school: "미사중학교", class: 4, number: 17, name: "이승민", status: "합격" },
+    { school: "은가람중학교", class: 1, number: 12, name: "박지수", status: "합격" },
+    { school: "미사중학교", class: 4, number: 27, name: "정지윤", status: "합격" },
+    { school: "미사강변중학교", class: 12, number: 11, name: "박민정", status: "합격" },
+    { school: "미사강변중학교", class: 11, number: 20, name: "이한울", status: "합격" },
+    { school: "신평중학교", class: 5, number: 2, name: "김나영", status: "합격" },
+    { school: "미사강변중학교", class: 5, number: 2, name: "김도희", status: "합격" },
+    { school: "윤슬중학교", class: 11, number: 23, name: "이은서", status: "합격" },
+    { school: "미사중학교", class: 12, number: 1, name: "강현아", status: "합격" },
+    { school: "덕풍중학교", class: 3, number: 11, name: "박서윤", status: "합격" },
+    { school: "은가람중학교", class: 8, number: 27, name: "홍지민", status: "합격" },
+    { school: "윤슬중학교", class: 12, number: 24, name: "이채은", status: "합격" },
     { school: "미사중학교", class: 1, number: 22, name: "유연지", status: "합격" },
     // --- 불합격자 명단 ---
     { school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격" },
@@ -355,6 +310,7 @@ const candidates = [
 
 // =======================================================================
 // 2. 조회 로직 및 이벤트 리스너
+// (이전과 동일)
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
@@ -376,7 +332,6 @@ function checkAdmission(event) {
     const resultDiv = document.getElementById('result');
     const schoolSong = document.getElementById('schoolSong');
 
-    // [안전 로직] 입력 요소 ID가 HTML에 있는지 먼저 확인합니다.
     if (!schoolInput || !classInput || !numberInput || !nameInput) {
         resultDiv.innerHTML = getErrorHtml("필수 입력 요소 중 일부를 찾을 수 없습니다. (HTML ID 오류)");
         console.error("HTML 요소 오류: schoolName, classNumber, studentNumber, studentName 중 하나가 누락되었습니다. index.html을 확인하세요.");
@@ -384,20 +339,17 @@ function checkAdmission(event) {
         return;
     }
 
-    // 입력값 가져오기
     const inputSchool = schoolInput.value.trim();
     const inputClass = parseInt(classInput.value.trim());
     const inputNumber = parseInt(numberInput.value.trim());
     const inputName = nameInput.value.trim();
     
-    // 입력값 유효성 검사 (공백/숫자 여부)
     if (!inputSchool || isNaN(inputClass) || isNaN(inputNumber) || !inputName) {
         resultDiv.innerHTML = getErrorHtml("모든 항목을 정확히 입력했는지 확인해 주세요. (반/번호는 숫자만 입력)");
         stopAndResetSong(schoolSong);
         return;
     }
     
-    // 4가지 조건 모두 일치하는 학생 찾기
     const result = candidates.find(c => 
         c.school === inputSchool && 
         c.class === inputClass && 
@@ -430,7 +382,7 @@ function getPassHtml(data) {
             <h1 style="color: #0056b3;">🎉 합격자 발표 확인 🎉</h1>
             
             <div class="certificate-box image-overlay" id="printableArea">
-                <img src="./images/certificate_template.jpg" alt="합격증 양식" class="template-background">
+                <img src="./images/certificate_template_final.jpg" alt="합격증 양식" class="template-background">
                 
                 <div class="overlay-text-container">
                     <p class="overlay-name"> ${data.name}</p>
@@ -468,35 +420,27 @@ function getErrorHtml(message) {
 // =======================================================================
 
 function printCertificate() {
-    // 1. 인쇄 직전, 교가를 멈춥니다.
     const schoolSong = document.getElementById('schoolSong');
     if (schoolSong) {
         stopAndResetSong(schoolSong);
     }
     
-    // 2. 인쇄 영역 (ID: printableArea)의 HTML을 가져옵니다.
     const printContents = document.getElementById('printableArea').innerHTML;
-    
-    // 3. 임시 팝업 창을 열어 인쇄를 실행하고 닫습니다. (가장 오류 없는 인쇄 방식)
     const printWindow = window.open('', '_blank');
     
-    // 인쇄용 HTML 구조 생성
     printWindow.document.write('<html><head><title>합격증 인쇄</title>');
-    // 인쇄 시 style.css를 적용합니다.
     printWindow.document.write('<link rel="stylesheet" href="./style.css">');
     printWindow.document.write('</head><body>');
     printWindow.document.write(printContents);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     
-    // 인쇄 실행 및 팝업 닫기
     printWindow.onload = function() {
-        printWindow.focus(); // 팝업창에 포커스
-        printWindow.print(); // 인쇄 대화상자 호출
-        printWindow.close(); // 인쇄 후 팝업 닫기 (선택 사항)
+        printWindow.focus(); 
+        printWindow.print(); 
+        printWindow.close(); 
     };
     
-    // 4. 인쇄 후, 페이지를 다시 로드하여 모든 스크립트 상태를 깔끔하게 초기화합니다.
     window.location.reload(); 
 }
 
