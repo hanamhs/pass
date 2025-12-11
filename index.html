@@ -1,11 +1,38 @@
-<form id="checkForm">
-    <input type="text" id="schoolName" placeholder="출신 중학교명 (예: 윤슬중학교)" required>
-    
-    <input type="number" id="classNumber" placeholder="반 (예: 3)" required>
-    
-    <input type="number" id="studentNumber" placeholder="번호 (예: 25)" required>
-    
-    <input type="text" id="studentName" placeholder="이름을 입력하세요" required>
-    
-    <button type="submit">합격 여부 조회</button>
-</form>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하남고등학교 신입생 합격자 조회</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>2026학년도 하남고등학교 신입생 합격자 발표</h1>
+        
+        <div class="image-wrapper">
+            <img src="images/hanam_school.jpg" alt="하남고등학교 전경" class="school-image">
+        </div>
+        <form id="checkForm">
+            <h2>합격자 조회를 위해 네 가지 정보를 정확히 입력해 주세요.</h2>
+            
+            <input type="text" id="schoolName" placeholder="출신 중학교명 (예: 윤슬중학교)" required>
+            
+            <input type="number" id="classNumber" placeholder="반 (예: 3)" required>
+            
+            <input type="number" id="studentNumber" placeholder="번호 (예: 25)" required>
+            
+            <input type="text" id="studentName" placeholder="이름을 입력하세요" required>
+            
+            <button type="submit">합격 여부 조회</button>
+        </form>
+        
+        <div id="result"></div>
+        
+        <audio id="schoolSong" src="sounds/school_song.mp3" preload="auto"></audio>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
