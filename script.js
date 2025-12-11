@@ -1,8 +1,8 @@
 // =======================================================================
 // 1. 합격/불합격자 명단 통합 데이터 (접수번호 기반 전체 내용)
+// ... (데이터 배열은 그대로 유지) ...
 // =======================================================================
 const candidates = [
-    // --- 합격/불합격자 명단 (접수번호, 학교, 이름 등 전체 데이터) ---
     { applicationNumber: 593322, school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격", major: "국가유공자자녀전형" },
     { applicationNumber: 498320, school: "덕풍중학교", class: 5, number: 22, name: "이준", status: "합격", major: "일반전형" },
     { applicationNumber: 521584, school: "덕풍중학교", class: 4, number: 21, name: "유재은", status: "합격", major: "일반전형" },
@@ -348,12 +348,11 @@ const candidates = [
 
 
 // =======================================================================
-// 2. 조회 로직 및 이벤트 리스너 (✅ 접수번호 단일 조회 로직)
+// 2. 조회 로직 및 이벤트 리스너 (✅ 접수번호 단일 조회 로직 적용)
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
     if (checkForm) {
-        // NOTE: 이 함수는 index.html의 폼 ID가 'checkForm'일 때만 작동합니다.
         checkForm.addEventListener('submit', checkAdmission); 
     } else {
         console.error("오류: index.html에서 'checkForm' ID를 가진 <form> 요소를 찾을 수 없습니다."); 
@@ -363,10 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function checkAdmission(event) {
     event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
 
-    // NOTE: index.html에서 이름과 학교명 입력 필드가 제거되었으므로, 이 코드를 사용하면 404가 발생합니다.
-    // 따라서, 조회 필드를 접수번호만 사용하도록 완전히 변경했습니다.
-    
-    const applicationInput = document.getElementById('studentNumber'); // 접수번호
+    const applicationInput = document.getElementById('studentNumber'); // 접수번호 필드만 사용
     
     const resultDiv = document.getElementById('result');
     const schoolSong = document.getElementById('schoolSong');
