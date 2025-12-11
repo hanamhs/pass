@@ -108,11 +108,11 @@ h2 {
 /* 🖼️ 이미지 오버레이 합격증 스타일 (HWP 양식 그대로) */
 .certificate-box.image-overlay {
     position: relative; 
-    border: none; /* 이미지 자체가 양식이므로 테두리 제거 */
+    border: none; 
     padding: 0;
     max-width: 700px; /* 이미지의 실제 크기에 맞게 조정 */
     margin: 30px auto;
-    overflow: hidden; /* 인쇄 시 텍스트가 밖으로 나가지 않도록 방지 */
+    overflow: hidden; 
 }
 
 /* 배경 이미지 (고화질 원본 양식) */
@@ -200,11 +200,6 @@ h2 {
         height: auto !important;
     }
     
-    /* 교가 섹션은 인쇄하지 않음 */
-    .gyoga-section {
-        display: none !important;
-    }
-
     /* 인쇄 시 여백 최소화 */
     @page {
         margin: 0.5cm;
