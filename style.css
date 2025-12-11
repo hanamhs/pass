@@ -99,93 +99,60 @@ h2 {
 
 /* 합격증 스타일 */
 .admission-pass {
-    background-color: #e6f7ff;
-    border: 1px solid #0056b3;
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     color: #333;
 }
 
-/* 워터마크가 적용될 영역 */
-.certificate-box {
-    border: 3px solid #ccc;
-    padding: 30px;
+/* 🖼️ 이미지 오버레이 합격증 스타일 (HWP 양식 그대로) */
+.certificate-box.image-overlay {
+    position: relative; 
+    border: none; /* 이미지 자체가 양식이므로 테두리 제거 */
+    padding: 0;
+    max-width: 700px; /* 이미지의 실제 크기에 맞게 조정 */
     margin: 30px auto;
-    max-width: 700px;
-    text-align: left;
-    position: relative; /* 워터마크 배치를 위한 설정 */
-    overflow: hidden; 
-    background-color: #fff; /* 배경색 지정 (워터마크 투명도 때문에 필요) */
-    z-index: 1; /* 컨테이너를 기본 z-index 위로 올림 */
+    overflow: hidden; /* 인쇄 시 텍스트가 밖으로 나가지 않도록 방지 */
 }
 
-/* 🏆 워터마크 스타일 (순서 1의 파일명과 일치해야 합니다) */
-.certificate-box::before {
-    content: "";
-    background-image: url('./images/hanam_logo_mark.png'); /* 파일명 확인 필수 */
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 70%; 
-    opacity: 0.15; /* 투명도 */
-    
+/* 배경 이미지 (고화질 원본 양식) */
+.template-background {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 텍스트 컨테이너 (이미지 위에 덧씌우는 영역) */
+.overlay-text-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* 합격증 내용 뒤로 배치 */
 }
 
-
-.certificate-title {
-    text-align: center;
-    font-size: 1.8em;
-    margin-bottom: 40px;
-    border-bottom: 3px solid #000;
-    padding-bottom: 10px;
-    position: relative; 
-    z-index: 2; /* 내용이 워터마크 위에 오도록 */
-}
-
-.certificate-table {
-    width: 100%;
-    margin-bottom: 30px;
-    border-collapse: collapse;
-    position: relative;
-    z-index: 2; /* 내용이 워터마크 위에 오도록 */
-}
-
-.certificate-table .label {
+/* ⚠️ 성명 위치 및 폰트 스타일 (이 값은 이미지 크기에 따라 미세 조정 필요) */
+.overlay-name {
+    position: absolute;
+    top: 27.5%;     /* 이미지에서 '성 명 :' 옆의 정확한 위치 */
+    left: 23%;      /* 이미지에서 '성 명 :' 옆의 정확한 위치 */
+    font-size: 1em; 
     font-weight: bold;
-    padding: 10px 0;
-    padding-right: 15px;
-    width: 150px;
+    color: #000;
+    white-space: nowrap;
 }
 
-.message {
-    margin-top: 40px;
-    margin-bottom: 50px;
-    text-align: center;
-    font-size: 1.1em;
-    position: relative;
-    z-index: 2;
+/* ⚠️ 출신 중학교 위치 및 폰트 스타일 (이 값은 이미지 크기에 따라 미세 조정 필요) */
+.overlay-school {
+    position: absolute;
+    top: 31%;       /* 이미지에서 '출신 중학교 :' 옆의 정확한 위치 */
+    left: 23%;      /* 이미지에서 '출신 중학교 :' 옆의 정확한 위치 */
+    font-size: 1em; 
+    font-weight: normal;
+    color: #000;
+    white-space: nowrap;
 }
 
-.school-info {
-    text-align: right;
-    margin-top: 50px;
-    margin-right: 20%;
-    line-height: 2;
-    position: relative;
-    z-index: 2;
-}
-
-.gyoga-section {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-}
 
 .print-button {
     background-color: #28a745 !important;
@@ -205,7 +172,7 @@ h2 {
 
 /* 인쇄용 최적화 CSS: @media print */
 @media print {
-    /* 인쇄할 때는 불필요한 요소 숨김 (버튼, 헤더, 배경 등) */
+    /* 인쇄할 때는 불필요한 요소 숨김 */
     body > *:not(.admission-pass) {
         display: none !important;
     }
@@ -214,17 +181,23 @@ h2 {
     .admission-pass {
         width: 100%;
         margin: 0;
-        background-color: white !important; /* 배경색 제거 */
+        background-color: white !important;
         border: none !important;
     }
     
-    /* 합격증 박스 테두리를 종이 전체 폭에 맞게 조정 */
+    /* 합격증 박스 테두리 및 그림자 제거 */
     .certificate-box {
-        border: none !important; /* 인쇄 시 테두리 제거 */
+        border: none !important; 
+        box-shadow: none !important;
         width: 100%;
         max-width: none;
         padding: 0;
-        box-shadow: none;
+    }
+    
+    /* 배경 이미지가 인쇄되도록 설정 */
+    .template-background {
+        width: 100% !important;
+        height: auto !important;
     }
     
     /* 교가 섹션은 인쇄하지 않음 */
@@ -232,13 +205,8 @@ h2 {
         display: none !important;
     }
 
-    /* 화면에서만 보이는 제목 숨기기 */
-    .admission-pass h1 {
-        display: none !important;
-    }
-
-    /* 인쇄 시 여백을 최소화 */
+    /* 인쇄 시 여백 최소화 */
     @page {
-        margin: 1.5cm; /* 용지 여백 설정 */
+        margin: 0.5cm;
     }
 }
