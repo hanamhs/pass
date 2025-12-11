@@ -1,9 +1,8 @@
 // =======================================================================
-// 1. 합격/불합격자 명단 통합 데이터 (접수번호 기반 전체 내용)
-// ... (데이터 배열은 그대로 유지) ...
+// 1. 합격/불합격자 명단 통합 데이터 (총 341명 명단 최종 반영)
 // =======================================================================
 const candidates = [
-    // --- 합격/불합격자 명단 (접수번호, 학교, 이름 등 전체 데이터) ---
+    // --- 합격자 명단 (총 336명) ---
     { applicationNumber: 593322, school: "윤슬중학교", class: 5, number: 26, name: "이준형", status: "합격", major: "국가유공자자녀전형" },
     { applicationNumber: 498320, school: "덕풍중학교", class: 5, number: 22, name: "이준", status: "합격", major: "일반전형" },
     { applicationNumber: 521584, school: "덕풍중학교", class: 4, number: 21, name: "유재은", status: "합격", major: "일반전형" },
@@ -276,80 +275,100 @@ const candidates = [
     { applicationNumber: 484141, school: "윤슬중학교", class: 8, number: 7, name: "김혜민", status: "합격", major: "일반전형" },
     { applicationNumber: 557750, school: "윤슬중학교", class: 2, number: 9, name: "김한동", status: "합격", major: "일반전형" },
     { applicationNumber: 498325, school: "윤슬중학교", class: 10, number: 28, name: "최민지", status: "합격", major: "일반전형" },
-    { applicationNumber: 498294, school: "미사강변중학교", class: 3, number: 20, name: "이시혁", status: "불합격", major: "일반전형" },
-    { applicationNumber: 486340, school: "윤슬중학교", class: 12, number: 25, name: "이채원", status: "불합격", major: "일반전형" },
-    { applicationNumber: 482034, school: "윤슬중학교", class: 7, number: 8, name: "김은광", status: "불합격", major: "일반전형" },
-    { applicationNumber: 530485, school: "미사중학교", class: 3, number: 11, name: "배서현", status: "불합격", major: "일반전형" },
-    { applicationNumber: 498331, school: "윤슬중학교", class: 13, number: 3, name: "김서윤", status: "불합격", major: "일반전형" },
-    { applicationNumber: 510792, school: "은가람중학교", class: 4, number: 25, name: "전빈", status: "불합격", major: "일반전형" },
-    { applicationNumber: 504646, school: "윤슬중학교", class: 13, number: 29, name: "함아윤", status: "불합격", major: "일반전형" },
-    { applicationNumber: 528439, school: "하남중학교", class: 1, number: 10, name: "민래원", status: "불합격", major: "일반전형" },
-    { applicationNumber: 545662, school: "윤슬중학교", class: 1, number: 21, name: "이재윤", status: "불합격", major: "일반전형" },
-    { applicationNumber: 545668, school: "윤슬중학교", class: 5, number: 2, name: "강우현", status: "불합격", major: "일반전형" },
-    { applicationNumber: 518176, school: "감일백제중학교", class: 4, number: 24, name: "주하은", status: "불합격", major: "일반전형" },
-    { applicationNumber: 530483, school: "미사중학교", class: 13, number: 23, name: "이정한", status: "불합격", major: "일반전형" },
-    { applicationNumber: 501700, school: "윤슬중학교", class: 10, number: 23, name: "임탐", status: "불합격", major: "일반전형" },
-    { applicationNumber: 559069, school: "미사강변중학교", class: 9, number: 15, name: "양현우", status: "불합격", major: "일반전형" },
-    { applicationNumber: 510788, school: "윤슬중학교", class: 9, number: 28, name: "장준호", status: "불합격", major: "일반전형" },
-    { applicationNumber: 528434, school: "미사강변중학교", class: 9, number: 30, name: "허원재", status: "불합격", major: "일반전형" },
-    { applicationNumber: 552048, school: "미사중학교", class: 8, number: 27, name: "조아인", status: "불합격", major: "일반전형" },
-    { applicationNumber: 574106, school: "윤슬중학교", class: 13, number: 18, name: "우혜원", status: "불합격", major: "일반전형" },
-    { applicationNumber: 545661, school: "윤슬중학교", class: 1, number: 19, name: "유예늘", status: "불합격", major: "일반전형" },
-    { applicationNumber: 482037, school: "미사중학교", class: 1, number: 24, name: "이광재", status: "불합격", major: "일반전형" },
-    { applicationNumber: 594045, school: "검정고시자", class: 0, number: 0, name: "강승우", status: "불합격", major: "일반전형" },
-    { applicationNumber: 585169, school: "은가람중학교", class: 7, number: 4, name: "김나림", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591322, school: "미사중학교", class: 7, number: 13, name: "김이록", status: "불합격", major: "일반전형" },
-    { applicationNumber: 515831, school: "검정고시자", class: 0, number: 0, name: "김희람", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593965, school: "검정고시자", class: 0, number: 0, name: "박신우", status: "불합격", major: "일반전형" },
-    { applicationNumber: 498318, school: "윤슬중학교", class: 7, number: 5, name: "김승준", status: "불합격", major: "일반전형" },
-    { applicationNumber: 486341, school: "윤슬중학교", class: 12, number: 27, name: "장세희", status: "불합격", major: "일반전형" },
-    { applicationNumber: 536525, school: "윤슬중학교", class: 3, number: 14, name: "박지민", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593629, school: "미사중학교", class: 3, number: 31, name: "최솔", status: "불합격", major: "일반전형" },
-    { applicationNumber: 595286, school: "미사중학교", class: 7, number: 7, name: "김민서", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593513, school: "윤슬중학교", class: 10, number: 3, name: "김도윤", status: "불합격", major: "일반전형" },
-    { applicationNumber: 586017, school: "윤슬중학교", class: 7, number: 30, name: "차예담", status: "불합격", major: "일반전형" },
-    { applicationNumber: 584128, school: "윤슬중학교", class: 9, number: 29, name: "정상연", status: "불합격", major: "일반전형" },
-    { applicationNumber: 584127, school: "윤슬중학교", class: 2, number: 30, name: "최민호", status: "불합격", major: "일반전형" },
-    { applicationNumber: 585540, school: "윤슬중학교", class: 4, number: 8, name: "김태율", status: "불합격", major: "일반전형" },
-    { applicationNumber: 588649, school: "은가람중학교", class: 1, number: 11, name: "김준영", status: "불합격", major: "일반전형" },
-    { applicationNumber: 575865, school: "미사강변중학교", class: 4, number: 4, name: "김범규", status: "불합격", major: "일반전형" },
-    { applicationNumber: 588651, school: "윤슬중학교", class: 10, number: 17, name: "이도현", status: "불합격", major: "일반전형" },
-    { applicationNumber: 565847, school: "윤슬중학교", class: 6, number: 29, name: "최윤지", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593822, school: "윤슬중학교", class: 5, number: 15, name: "서다현", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593844, school: "윤슬중학교", class: 7, number: 1, name: "국현", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593845, school: "미사중학교", class: 9, number: 22, name: "정민주", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593628, school: "감일백제중학교", class: 5, number: 3, name: "길해리", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591351, school: "미사중학교", class: 2, number: 28, name: "정예원", status: "불합격", major: "일반전형" },
-    { applicationNumber: 595165, school: "윤슬중학교", class: 2, number: 7, name: "김지훈", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593848, school: "은가람중학교", class: 3, number: 3, name: "김선율", status: "불합격", major: "일반전형" },
-    { applicationNumber: 588658, school: "윤슬중학교", class: 11, number: 3, name: "김가람", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593847, school: "윤슬중학교", class: 7, number: 20, name: "이소율", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593209, school: "미사강변중학교", class: 6, number: 32, name: "최준서", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591397, school: "미사중학교", class: 5, number: 33, name: "황지유", status: "불합격", major: "일반전형" },
-    { applicationNumber: 592104, school: "윤슬중학교", class: 1, number: 23, name: "이준혁", status: "불합격", major: "일반전형" },
-    { applicationNumber: 592592, school: "윤슬중학교", class: 13, number: 10, name: "김하윤", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591662, school: "미사강변중학교", class: 6, number: 18, name: "윤여슬", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593466, school: "윤슬중학교", class: 9, number: 4, name: "김우주", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591379, school: "미사중학교", class: 4, number: 19, name: "이혜선", status: "불합격", major: "일반전형" },
-    { applicationNumber: 590665, school: "미사강변중학교", class: 5, number: 18, name: "안서현", status: "불합격", major: "일반전형" },
-    { applicationNumber: 580298, school: "미사강변중학교", class: 13, number: 29, name: "최서연", status: "불합격", major: "일반전형" },
-    { applicationNumber: 585817, school: "미사중학교", class: 7, number: 3, name: "권준성", status: "불합격", major: "일반전형" },
-    { applicationNumber: 593208, school: "윤슬중학교", class: 8, number: 16, name: "오지훈", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591378, school: "미사중학교", class: 8, number: 29, name: "조훈률", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591279, school: "미사강변중학교", class: 3, number: 29, name: "탁연후", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591326, school: "미사중학교", class: 4, number: 16, name: "이정모", status: "불합격", major: "일반전형" },
-    { applicationNumber: 588650, school: "윤슬중학교", class: 2, number: 28, name: "조동일", status: "불합격", major: "일반전형" },
-    { applicationNumber: 585869, school: "미사강변중학교", class: 13, number: 23, name: "이승민", status: "불합격", major: "일반전형" },
-    { applicationNumber: 595254, school: "미사중학교", class: 9, number: 31, name: "최종서", status: "불합격", major: "일반전형" },
-    { applicationNumber: 591280, school: "윤슬중학교", class: 1, number: 3, name: "김민서", status: "불합격", major: "일반전형" },
-    { applicationNumber: 588684, school: "윤슬중학교", class: 3, number: 10, name: "김태린", status: "불합격", major: "일반전형" },
-    { applicationNumber: 585818, school: "윤슬중학교", class: 11, number: 24, name: "정우민", status: "불합격", major: "일반전형" },
-    { applicationNumber: 574107, school: "미사중학교", class: 1, number: 22, name: "유연지", status: "불합격", major: "일반전형" }
+    
+    // --- 검정고시자 명단 (합격으로 수정 완료) ---
+    { applicationNumber: 594045, school: "검정고시자", class: 0, number: 0, name: "강승우", status: "합격", major: "일반전형" }, 
+    { applicationNumber: 515831, school: "검정고시자", class: 0, number: 0, name: "김희람", status: "합격", major: "일반전형" }, 
+    { applicationNumber: 593965, school: "검정고시자", class: 0, number: 0, name: "박신우", status: "합격", major: "일반전형" }, 
+    
+    // --- 불합격자 명단 (총 5명) ---
+    { applicationNumber: 595549, school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격", major: "일반전형" },
+    { applicationNumber: 595548, school: "신평중학교", class: 3, number: 21, name: "전요한", status: "불합격", major: "일반전형" },
+    { applicationNumber: 595821, school: "윤슬중학교", class: 2, number: 20, name: "윤영빈", status: "불합격", major: "일반전형" },
+    { applicationNumber: 593261, school: "덕풍중학교", class: 2, number: 29, name: "최우진", status: "불합격", major: "일반전형" },
+    { applicationNumber: 595822, school: "윤슬중학교", class: 2, number: 21, name: "윤지인", status: "불합격", major: "일반전형" },
+    
+    // --- 일반 합격자 명단 (불합격자로 잘못 분류되었던 명단을 합격으로 다시 반영합니다.) ---
+    { applicationNumber: 498294, school: "미사강변중학교", class: 3, number: 20, name: "이시혁", status: "합격", major: "일반전형" },
+    { applicationNumber: 486340, school: "윤슬중학교", class: 12, number: 25, name: "이채원", status: "합격", major: "일반전형" },
+    { applicationNumber: 482034, school: "윤슬중학교", class: 7, number: 8, name: "김은광", status: "합격", major: "일반전형" },
+    { applicationNumber: 530485, school: "미사중학교", class: 3, number: 11, name: "배서현", status: "합격", major: "일반전형" },
+    { applicationNumber: 498331, school: "윤슬중학교", class: 13, number: 3, name: "김서윤", status: "합격", major: "일반전형" },
+    { applicationNumber: 510792, school: "은가람중학교", class: 4, number: 25, name: "전빈", status: "합격", major: "일반전형" },
+    { applicationNumber: 504646, school: "윤슬중학교", class: 13, number: 29, name: "함아윤", status: "합격", major: "일반전형" },
+    { applicationNumber: 528439, school: "하남중학교", class: 1, number: 10, name: "민래원", status: "합격", major: "일반전형" },
+    { applicationNumber: 545662, school: "윤슬중학교", class: 1, number: 21, name: "이재윤", status: "합격", major: "일반전형" },
+    { applicationNumber: 545668, school: "윤슬중학교", class: 5, number: 2, name: "강우현", status: "합격", major: "일반전형" },
+    { applicationNumber: 518176, school: "감일백제중학교", class: 4, number: 24, name: "주하은", status: "합격", major: "일반전형" },
+    { applicationNumber: 530483, school: "미사중학교", class: 13, number: 23, name: "이정한", status: "합격", major: "일반전형" },
+    { applicationNumber: 501700, school: "윤슬중학교", class: 10, number: 23, name: "임탐", status: "합격", major: "일반전형" },
+    { applicationNumber: 559069, school: "미사강변중학교", class: 9, number: 15, name: "양현우", status: "합격", major: "일반전형" },
+    { applicationNumber: 510788, school: "윤슬중학교", class: 9, number: 28, name: "장준호", status: "합격", major: "일반전형" },
+    { applicationNumber: 528434, school: "미사강변중학교", class: 9, number: 30, name: "허원재", status: "합격", major: "일반전형" },
+    { applicationNumber: 552048, school: "미사중학교", class: 8, number: 27, name: "조아인", status: "합격", major: "일반전형" },
+    { applicationNumber: 574106, school: "윤슬중학교", class: 13, number: 18, name: "우혜원", status: "합격", major: "일반전형" },
+    { applicationNumber: 545661, school: "윤슬중학교", class: 1, number: 19, name: "유예늘", status: "합격", major: "일반전형" },
+    { applicationNumber: 482037, school: "미사중학교", class: 1, number: 24, name: "이광재", status: "합격", major: "일반전형" },
+    { applicationNumber: 585169, school: "은가람중학교", class: 7, number: 4, name: "김나림", status: "합격", major: "일반전형" },
+    { applicationNumber: 591322, school: "미사중학교", class: 7, number: 13, name: "김이록", status: "합격", major: "일반전형" },
+    { applicationNumber: 498318, school: "윤슬중학교", class: 7, number: 5, name: "김승준", status: "합격", major: "일반전형" },
+    { applicationNumber: 486341, school: "윤슬중학교", class: 12, number: 27, name: "장세희", status: "합격", major: "일반전형" },
+    { applicationNumber: 536525, school: "윤슬중학교", class: 3, number: 14, name: "박지민", status: "합격", major: "일반전형" },
+    { applicationNumber: 593629, school: "미사중학교", class: 3, number: 31, name: "최솔", status: "합격", major: "일반전형" },
+    { applicationNumber: 595286, school: "미사중학교", class: 7, number: 7, name: "김민서", status: "합격", major: "일반전형" },
+    { applicationNumber: 593513, school: "윤슬중학교", class: 10, number: 3, name: "김도윤", status: "합격", major: "일반전형" },
+    { applicationNumber: 586017, school: "윤슬중학교", class: 7, number: 30, name: "차예담", status: "합격", major: "일반전형" },
+    { applicationNumber: 584128, school: "윤슬중학교", class: 9, number: 29, name: "정상연", status: "합격", major: "일반전형" },
+    { applicationNumber: 584127, school: "윤슬중학교", class: 2, number: 30, name: "최민호", status: "합격", major: "일반전형" },
+    { applicationNumber: 585540, school: "윤슬중학교", class: 4, number: 8, name: "김태율", status: "합격", major: "일반전형" },
+    { applicationNumber: 588649, school: "은가람중학교", class: 1, number: 11, name: "김준영", status: "합격", major: "일반전형" },
+    { applicationNumber: 575865, school: "미사강변중학교", class: 4, number: 4, name: "김범규", status: "합격", major: "일반전형" },
+    { applicationNumber: 588651, school: "윤슬중학교", class: 10, number: 17, name: "이도현", status: "합격", major: "일반전형" },
+    { applicationNumber: 565847, school: "윤슬중학교", class: 6, number: 29, name: "최윤지", status: "합격", major: "일반전형" },
+    { applicationNumber: 593822, school: "윤슬중학교", class: 5, number: 15, name: "서다현", status: "합격", major: "일반전형" },
+    { applicationNumber: 593844, school: "윤슬중학교", class: 7, number: 1, name: "국현", status: "합격", major: "일반전형" },
+    { applicationNumber: 593845, school: "미사중학교", class: 9, number: 22, name: "정민주", status: "합격", major: "일반전형" },
+    { applicationNumber: 593628, school: "감일백제중학교", class: 5, number: 3, name: "길해리", status: "합격", major: "일반전형" },
+    { applicationNumber: 591351, school: "미사중학교", class: 2, number: 28, name: "정예원", status: "합격", major: "일반전형" },
+    { applicationNumber: 595165, school: "윤슬중학교", class: 2, number: 7, name: "김지훈", status: "합격", major: "일반전형" },
+    { applicationNumber: 593848, school: "은가람중학교", class: 3, number: 3, name: "김선율", status: "합격", major: "일반전형" },
+    { applicationNumber: 588658, school: "윤슬중학교", class: 11, number: 3, name: "김가람", status: "합격", major: "일반전형" },
+    { applicationNumber: 593847, school: "윤슬중학교", class: 7, number: 20, name: "이소율", status: "합격", major: "일반전형" },
+    { applicationNumber: 593209, school: "미사강변중학교", class: 6, number: 32, name: "최준서", status: "합격", major: "일반전형" },
+    { applicationNumber: 591397, school: "미사중학교", class: 5, number: 33, name: "황지유", status: "합격", major: "일반전형" },
+    { applicationNumber: 592104, school: "윤슬중학교", class: 1, number: 23, name: "이준혁", status: "합격", major: "일반전형" },
+    { applicationNumber: 592592, school: "윤슬중학교", class: 13, number: 10, name: "김하윤", status: "합격", major: "일반전형" },
+    { applicationNumber: 591662, school: "미사강변중학교", class: 6, number: 18, name: "윤여슬", status: "합격", major: "일반전형" },
+    { applicationNumber: 593466, school: "윤슬중학교", class: 9, number: 4, name: "김우주", status: "합격", major: "일반전형" },
+    { applicationNumber: 591379, school: "미사중학교", class: 4, number: 19, name: "이혜선", status: "합격", major: "일반전형" },
+    { applicationNumber: 590665, school: "미사강변중학교", class: 5, number: 18, name: "안서현", status: "합격", major: "일반전형" },
+    { applicationNumber: 580298, school: "미사강변중학교", class: 13, number: 29, name: "최서연", status: "합격", major: "일반전형" },
+    { applicationNumber: 585817, school: "미사중학교", class: 7, number: 3, name: "권준성", status: "합격", major: "일반전형" },
+    { applicationNumber: 593208, school: "윤슬중학교", class: 8, number: 16, name: "오지훈", status: "합격", major: "일반전형" },
+    { applicationNumber: 591378, school: "미사중학교", class: 8, number: 29, name: "조훈률", status: "합격", major: "일반전형" },
+    { applicationNumber: 591279, school: "미사강변중학교", class: 3, number: 29, name: "탁연후", status: "합격", major: "일반전형" },
+    { applicationNumber: 591326, school: "미사중학교", class: 4, number: 16, name: "이정모", status: "합격", major: "일반전형" },
+    { applicationNumber: 588650, school: "윤슬중학교", class: 2, number: 28, name: "조동일", status: "합격", major: "일반전형" },
+    { applicationNumber: 585869, school: "미사강변중학교", class: 13, number: 23, name: "이승민", status: "합격", major: "일반전형" },
+    { applicationNumber: 595254, school: "미사중학교", class: 9, number: 31, name: "최종서", status: "합격", major: "일반전형" },
+    { applicationNumber: 591280, school: "윤슬중학교", class: 1, number: 3, name: "김민서", status: "합격", major: "일반전형" },
+    { applicationNumber: 588684, school: "윤슬중학교", class: 3, number: 10, name: "김태린", status: "합격", major: "일반전형" },
+    { applicationNumber: 585818, school: "윤슬중학교", class: 11, number: 24, name: "정우민", status: "합격", major: "일반전형" },
+    { applicationNumber: 574107, school: "미사중학교", class: 1, number: 22, name: "유연지", status: "합격", major: "일반전형" },
+    
+    // --- 불합격자 명단 (총 5명) ---
+    { applicationNumber: 595549, school: "신평중학교", class: 5, number: 21, name: "이지용", status: "불합격", major: "일반전형" },
+    { applicationNumber: 595548, school: "신평중학교", class: 3, number: 21, name: "전요한", status: "불합격", major: "일반전형" },
+    { applicationNumber: 595821, school: "윤슬중학교", class: 2, number: 20, name: "윤영빈", status: "불합격", major: "일반전형" },
+    { applicationNumber: 593261, school: "덕풍중학교", class: 2, number: 29, name: "최우진", status: "불합격", major: "일반전형" },
+    { applicationNumber: 595822, school: "윤슬중학교", class: 2, number: 21, name: "윤지인", status: "불합격", major: "일반전형" }
+    
+    // 이 외의 모든 항목은 합격 처리되었습니다.
 ];
 
 
 // =======================================================================
-// 2. 조회 로직 및 이벤트 리스너 (✅ 데이터 타입 확인 및 오류 출력 강화)
+// 2. 조회 로직 및 이벤트 리스너 (4가지 필드 조회 로직 유지)
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
@@ -377,13 +396,15 @@ function checkAdmission(event) {
         return;
     }
 
-    // 입력값 가져오기
     const inputSchool = schoolInput.value.trim();
     const inputName = nameInput.value.trim();
     
-    // ✅ 데이터 타입 변환 (숫자로 변환 시 공백은 0이 아닌 NaN을 반환해야 함)
-    const inputClass = parseInt(classInput.value.trim());
-    const inputNumber = parseInt(numberInput.value.trim()); 
+    const inputClassValue = classInput.value.trim();
+    const inputNumberValue = numberInput.value.trim();
+    
+    // ✅ 검정고시자 특수 처리: "검정고시자"가 입력되면 반/번호를 0으로 설정
+    let inputClass = (inputSchool === "검정고시자" && inputClassValue === '0') ? 0 : parseInt(inputClassValue);
+    let inputNumber = (inputSchool === "검정고시자" && inputNumberValue === '0') ? 0 : parseInt(inputNumberValue); 
     
     // ✅ 1차 유효성 검사 (빈 값 또는 숫자가 아닐 때)
     if (!inputSchool || inputSchool === "" || isNaN(inputClass) || isNaN(inputNumber) || !inputName || inputName === "") {
@@ -392,9 +413,8 @@ function checkAdmission(event) {
         return;
     }
     
-    // ✅ 2차 조회 로직 (4가지 필드 모두 일치하는 학생을 찾습니다.)
+    // ✅ 4가지 필드 모두 일치하는 학생을 찾습니다.
     const result = candidates.find(c => 
-        // 문자열 필드는 공백 제거된 입력값과 데이터의 값이 일치해야 함
         c.school === inputSchool && 
         c.class === inputClass && 
         c.number === inputNumber && 
@@ -410,7 +430,6 @@ function checkAdmission(event) {
             stopAndResetSong(schoolSong);
         }
     } else {
-        // ✅ 3차 조회 실패 시 (4가지 정보가 명단에 없음)
         resultDiv.innerHTML = getErrorHtml("입력하신 정보와 일치하는 수험생 정보가 명단에 없습니다. 정보를 다시 한번 확인해주세요.");
         stopAndResetSong(schoolSong);
     }
@@ -464,7 +483,6 @@ function getFailHtml(data) {
 }
 
 function getErrorHtml(message) {
-    // CSS에서 admission-error 클래스를 통해 빨간색 배경이 적용됩니다.
     return `
         <div class="admission-error">
             <h1>⚠️ 조회 오류</h1>
