@@ -371,66 +371,37 @@ function checkAdmission(event) {
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 (최종 인라인 스타일 강제 적용)
+// 3. 결과 HTML 생성 함수들 (PDF 연동으로 최종 변경)
 // =======================================================================
 
 function getPassHtml(data) {
-    // 인라인 스타일로 최종 위치, 폰트 굵기, 컨테이너 너비를 강제 적용합니다.
-    const certificateHtml = `
+    // 합격증 PDF 파일 경로 (영문으로 업로드할 최종 PDF 파일명으로 변경하세요)
+    const pdfPath = './images/hanam_admission_certificate.pdf'; 
+
+    return `
         <div class="admission-pass">
-            <h1 style="color: #0056b3;">🎉 합격자 발표 확인 🎉</h1>
+            <h1>🎉 합격자 발표 확인 🎉</h1>
+            <p>축하합니다, **${data.name}** 학생! 2026학년도 신입학 전형에 합격하셨습니다.</p>
             
-            <div class="certificate-box image-overlay" id="printableArea" style="
-                position: relative !important;
-                border: none !important;
-                padding: 0 !important;
-                /* 그림 크기 문제 해결: 최대 너비를 100%로 강제 설정 */
-                max-width: 100% !important; 
-                width: 700px !important; 
-                margin: 0 auto !important;
-                overflow: hidden !important;
+            <p style="margin-top: 20px; font-weight: bold; color: #0056b3;">
+                합격 증명서는 아래 버튼을 통해 고화질 PDF 파일로 다운로드/출력하실 수 있습니다.
+            </p>
+
+            <a href="${pdfPath}" target="_blank" class="print-button" style="
+                cursor: pointer !important;
+                padding: 12px 25px;
+                background-color: #28a745;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                display: inline-block;
+                margin-top: 15px;
             ">
-                <img src="./images/certificate_template.jpg" alt="합격증 양식" class="template-background" style="
-                    width: 100% !important;
-                    height: auto !important;
-                    display: block !important;
-                ">
-                
-                <div class="overlay-text-container" style="
-                    position: absolute !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                ">
-                    <p class="overlay-name" style="
-                        position: absolute !important;
-                        top: 27% !important;     
-                        left: 17% !important;      
-                        font-size: 1.2em !important; 
-                        font-family: 'Nanum Gothic', sans-serif !important;
-                        font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
-                        color: #000 !important;
-                        white-space: nowrap !important;
-                    "> ${data.name}</p>
-                    
-                    <p class="overlay-school" style="
-                        position: absolute !important;
-                        top: 31% !important;   
-                        left: 23% !important;    
-                        font-size: 1.2em !important; 
-                        font-family: 'Nanum Gothic', sans-serif !important;
-                        font-weight: 400 !important; /* 굵기를 일반(400)으로 강제 적용 */
-                        color: #000 !important;
-                        white-space: nowrap !important;
-                    "> ${data.school}</p>
-                </div>
-            </div>
+                ✅ 합격증 PDF 파일 출력/다운로드
+            </a>
             
-            <button onclick="printCertificate()" class="print-button" style="cursor: pointer !important;">합격증 인쇄</button>
         </div>
     `;
-    return certificateHtml;
 }
 
 function getFailHtml(data) {
@@ -453,33 +424,8 @@ function getErrorHtml(message) {
 }
 
 // =======================================================================
-// 4. 합격증 출력 기능 및 오디오 제어 함수 (인쇄 오류 방지 최종 버전)
+// 4. 오디오 제어 함수
 // =======================================================================
-function printCertificate() {
-    const schoolSong = document.getElementById('schoolSong');
-    if (schoolSong) {
-        stopAndResetSong(schoolSong);
-    }
-    
-    const printContents = document.getElementById('printableArea').innerHTML;
-    const printWindow = window.open('', '_blank');
-    
-    printWindow.document.write('<html><head><title>합격증 인쇄</title>');
-    printWindow.document.write('<link rel="stylesheet" href="./style.css">');
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(printContents);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    
-    printWindow.onload = function() {
-        printWindow.focus(); 
-        printWindow.print(); 
-        printWindow.close(); 
-    };
-    
-    window.location.reload(); 
-}
-
 function stopAndResetSong(audioElement) {
     if (audioElement) {
         audioElement.pause();
