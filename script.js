@@ -1,5 +1,6 @@
 // =======================================================================
 // 1. 합격/불합격자 명단 통합 데이터 (접수번호 기반 전체 내용)
+// ... (데이터 배열은 그대로 유지) ...
 // =======================================================================
 const candidates = [
     // --- 합격/불합격자 명단 (접수번호, 학교, 이름 등 전체 데이터) ---
@@ -348,7 +349,7 @@ const candidates = [
 
 
 // =======================================================================
-// 2. 조회 로직 및 이벤트 리스너 (✅ 4가지 필드 조회 로직 복구)
+// 2. 조회 로직 및 이벤트 리스너 (✅ 데이터 타입 확인 및 오류 출력 강화)
 // =======================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const checkForm = document.getElementById('checkForm');
@@ -371,29 +372,29 @@ function checkAdmission(event) {
     const schoolSong = document.getElementById('schoolSong');
 
     if (!schoolInput || !classInput || !numberInput || !nameInput) {
-        // 이 오류는 HTML 필드 ID가 잘못되었을 때만 발생합니다.
-        resultDiv.innerHTML = getErrorHtml("필수 입력 요소 중 일부를 찾을 수 없습니다. (HTML ID 오류)");
+        resultDiv.innerHTML = getErrorHtml("HTML 입력 요소 ID 오류입니다. 관리자에게 문의하세요.");
         stopAndResetSong(schoolSong);
         return;
     }
 
+    // 입력값 가져오기
     const inputSchool = schoolInput.value.trim();
     const inputName = nameInput.value.trim();
     
-    // ✅ 데이터 타입 변환 및 유효성 검사 강화
+    // ✅ 데이터 타입 변환 (숫자로 변환 시 공백은 0이 아닌 NaN을 반환해야 함)
     const inputClass = parseInt(classInput.value.trim());
     const inputNumber = parseInt(numberInput.value.trim()); 
     
-    if (!inputSchool || isNaN(inputClass) || isNaN(inputNumber) || !inputName) {
-        // ✅ 입력값이 비어있거나 숫자가 아닐 때 출력되는 오류
+    // ✅ 1차 유효성 검사 (빈 값 또는 숫자가 아닐 때)
+    if (!inputSchool || inputSchool === "" || isNaN(inputClass) || isNaN(inputNumber) || !inputName || inputName === "") {
         resultDiv.innerHTML = getErrorHtml("모든 항목을 정확히 입력했는지 확인해 주세요. (반/번호는 숫자만 입력)");
         stopAndResetSong(schoolSong);
         return;
     }
     
-    // ✅ 4가지 필드 모두 일치하는 학생을 찾습니다.
+    // ✅ 2차 조회 로직 (4가지 필드 모두 일치하는 학생을 찾습니다.)
     const result = candidates.find(c => 
-        // 입력된 문자열과 숫자가 데이터 배열의 필드와 정확히 일치하는지 확인
+        // 문자열 필드는 공백 제거된 입력값과 데이터의 값이 일치해야 함
         c.school === inputSchool && 
         c.class === inputClass && 
         c.number === inputNumber && 
@@ -402,7 +403,6 @@ function checkAdmission(event) {
 
     if (result) {
         if (result.status === "합격") {
-            // ✅ 합격 시, 학생 정보를 getPassHtml로 전달
             resultDiv.innerHTML = getPassHtml(result); 
             schoolSong.play().catch(e => console.error("오디오 재생 실패:", e));
         } else {
@@ -410,21 +410,18 @@ function checkAdmission(event) {
             stopAndResetSong(schoolSong);
         }
     } else {
-        // ✅ 조회 실패 시 (4가지 정보가 명단에 없음)
-        resultDiv.innerHTML = getErrorHtml("입력하신 정보와 일치하는 수험생 정보가 명단에 없습니다.");
+        // ✅ 3차 조회 실패 시 (4가지 정보가 명단에 없음)
+        resultDiv.innerHTML = getErrorHtml("입력하신 정보와 일치하는 수험생 정보가 명단에 없습니다. 정보를 다시 한번 확인해주세요.");
         stopAndResetSong(schoolSong);
     }
 }
 
 // =======================================================================
-// 3. 결과 HTML 생성 함수들 (✅ 메시지 필드 복구 및 PDF 경로 수정)
+// 3. 결과 HTML 생성 함수들 (메시지 및 PDF 경로)
 // =======================================================================
 
 function getPassHtml(data) {
-    // 💡 PDF 파일 경로를 [applicationNumber].pdf 형식으로 생성
-    // 6자리 접수번호를 사용합니다.
     const applicationNumber = data.applicationNumber; 
-    
     const pdfPath = `./images/${applicationNumber}.pdf`; 
 
     return `
@@ -446,16 +443,7 @@ function getPassHtml(data) {
                 합격 증명서는 아래 버튼을 통해 고화질 PDF 파일로 다운로드/출력하실 수 있습니다.
             </p>
 
-            <a href="${pdfPath}" target="_blank" class="print-button" style="
-                cursor: pointer !important;
-                padding: 12px 25px;
-                background-color: #28a745;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                display: inline-block;
-                margin-top: 15px;
-            ">
+            <a href="${pdfPath}" target="_blank" class="print-button">
                 ✅ 합격증 PDF 파일 출력/다운로드
             </a>
             
@@ -464,8 +452,7 @@ function getPassHtml(data) {
 }
 
 function getFailHtml(data) {
-    // 불합격자도 접수번호를 보여줍니다.
-     const applicationNumber = data.applicationNumber; 
+    const applicationNumber = data.applicationNumber; 
 
     return `
         <div class="admission-fail">
@@ -477,7 +464,7 @@ function getFailHtml(data) {
 }
 
 function getErrorHtml(message) {
-    // ✅ 오류 메시지에 빨간색 배경 적용
+    // CSS에서 admission-error 클래스를 통해 빨간색 배경이 적용됩니다.
     return `
         <div class="admission-error">
             <h1>⚠️ 조회 오류</h1>
