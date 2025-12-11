@@ -476,7 +476,7 @@ function getFailHtml(data) {
     return `
         <div class="admission-fail">
             <h1>😭 아쉽게도 불합격입니다.</h1>
-            <p>수험생 <strong style="font-size: 1.1em;">${data.name}</strong> 님 (접수번호: ${applicationNumber})은 명단에 포함되어 있습니다.</p>
+            <p>수험생 <strong style="font-size: 1.1em;">${data.name}</strong> 님 (접수번호: ${applicationNumber})은 합격자 명단에 포함되어 있지 않습니다.</p>
             <p>하남고등학교에 관심을 가져주셔서 감사합니다. 다른 좋은 기회가 있기를 기원합니다.</p>
         </div>
     `;
