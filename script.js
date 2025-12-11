@@ -1,6 +1,5 @@
 // =======================================================================
 // 1. 합격/불합격자 명단 통합 데이터 (접수번호 기반 전체 내용)
-// ... (데이터 배열은 그대로 유지) ...
 // =======================================================================
 const candidates = [
     // --- 합격/불합격자 명단 (접수번호, 학교, 이름 등 전체 데이터) ---
@@ -365,25 +364,28 @@ function checkAdmission(event) {
 
     const schoolInput = document.getElementById('schoolName');
     const classInput = document.getElementById('classNumber'); // 반
-    const numberInput = document.getElementById('studentNumber'); // 번호
+    const numberInput = document.getElementById('studentNumber'); // 번호 (학생 번호)
     const nameInput = document.getElementById('studentName');
     
     const resultDiv = document.getElementById('result');
     const schoolSong = document.getElementById('schoolSong');
 
     if (!schoolInput || !classInput || !numberInput || !nameInput) {
+        // 이 오류는 HTML 필드 ID가 잘못되었을 때만 발생합니다.
         resultDiv.innerHTML = getErrorHtml("필수 입력 요소 중 일부를 찾을 수 없습니다. (HTML ID 오류)");
-        console.error("HTML 요소 오류: schoolName, classNumber, studentNumber, studentName 중 하나가 누락되었습니다. index.html을 확인하세요.");
         stopAndResetSong(schoolSong);
         return;
     }
 
     const inputSchool = schoolInput.value.trim();
-    const inputClass = parseInt(classInput.value.trim());
-    const inputNumber = parseInt(numberInput.value.trim()); // 학생 번호
     const inputName = nameInput.value.trim();
     
+    // ✅ 데이터 타입 변환 및 유효성 검사 강화
+    const inputClass = parseInt(classInput.value.trim());
+    const inputNumber = parseInt(numberInput.value.trim()); 
+    
     if (!inputSchool || isNaN(inputClass) || isNaN(inputNumber) || !inputName) {
+        // ✅ 입력값이 비어있거나 숫자가 아닐 때 출력되는 오류
         resultDiv.innerHTML = getErrorHtml("모든 항목을 정확히 입력했는지 확인해 주세요. (반/번호는 숫자만 입력)");
         stopAndResetSong(schoolSong);
         return;
@@ -391,6 +393,7 @@ function checkAdmission(event) {
     
     // ✅ 4가지 필드 모두 일치하는 학생을 찾습니다.
     const result = candidates.find(c => 
+        // 입력된 문자열과 숫자가 데이터 배열의 필드와 정확히 일치하는지 확인
         c.school === inputSchool && 
         c.class === inputClass && 
         c.number === inputNumber && 
@@ -407,7 +410,7 @@ function checkAdmission(event) {
             stopAndResetSong(schoolSong);
         }
     } else {
-        // 조회 실패 시
+        // ✅ 조회 실패 시 (4가지 정보가 명단에 없음)
         resultDiv.innerHTML = getErrorHtml("입력하신 정보와 일치하는 수험생 정보가 명단에 없습니다.");
         stopAndResetSong(schoolSong);
     }
@@ -474,6 +477,7 @@ function getFailHtml(data) {
 }
 
 function getErrorHtml(message) {
+    // ✅ 오류 메시지에 빨간색 배경 적용
     return `
         <div class="admission-error">
             <h1>⚠️ 조회 오류</h1>
